@@ -1,0 +1,105 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>testAdmin1</title>
+
+
+
+
+<script src='src/lib/jquery-1.11.3.js'></script>
+<script src='src/libMy/divLib.js'></script>
+
+
+
+
+
+
+<style type="text/css">
+	#stats { position: absolute; top:0; left: 200px; }
+</style>
+
+</head>
+<meta name="viewport" content="width=device-width,height=device-height,user-scalable=no user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<body>
+
+<script  type="module">
+
+
+
+
+	import {DevExample} from './src/dev/DevExample.js';
+	import {Dev1} from './src/dev/Dev1.js';
+	import {Dev2} from './src/dev/Dev2.js';
+	window.trace = window.console.log.bind(window.console);
+
+	window.dcmParam;	
+
+	var contentHTML
+
+	var arrDev=[]
+
+
+	function sizeWindow () {
+		var w = document.documentElement.clientWidth;
+		var h = document.documentElement.clientHeight;
+		for (var i = 0; i < arrDev.length; i++) {
+			arrDev[i].sizeWindow(w,h);
+		}
+	}
+
+	function init () {
+		
+		
+		
+
+		window.dcmParam = new DCM();//интерфейс
+
+		var dCont=new DCont(document.body);	
+
+		arrDev.push(new DevExample(dCont))
+		arrDev.push(new Dev1(dCont))
+		arrDev.push(new Dev2(dCont))	
+		
+/*
+
+		var b=new DButton(dCont, 5,5,"Stop",function(){
+			b.visible=false;
+			b1.visible=true;
+			slid.visible=true;
+		});
+		b.width=200;
+		b.visible=false;
+
+		var b1=new DButton(dCont, 5,5,"Start",function(){
+			b.visible=true;
+			b1.visible=false;
+			slid.visible=false;
+		});
+		b1.width=200;
+
+		var slid=new DSliderBig(dCont, 5,5+36,function(v){
+			aav2.timeFoto=this.value;
+		},"милисекунды",1,2000);
+		slid.width=200;
+		slid.value=aav2.timeFoto;
+		slid.okrug=1;*/
+
+	}
+
+
+	function animate() {
+		requestAnimationFrame( animate );
+
+	
+		for (var i = 0; i < arrDev.length; i++) {
+			arrDev[i].upDate();
+		}
+	}
+
+	init()
+	animate();
+</script>
+
+	
+<body >
+	<video id="video" autoplay playsinline></video>	
+</body></html>
