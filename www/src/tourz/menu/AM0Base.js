@@ -12,81 +12,101 @@ export class AM0Base extends AMBaza {
         this.fun=fun;
 
         this._active=false;
-
+        this._indexId=-1;
         this.button=undefined;
 
+        this.widthMenu=par.widthMenu
+        this.objBase=undefined
+        var wPlus=2200;
+        
 
-        this.down= function(){
+
+        this.down= function(s,p){ 
+                      
+            if(s=="completed")self.fun(s,p.id);//self.indexId=p.id;
+            if(s=="preview")self.fun(s,p);
+        } 
 
 
-        }    
+    
+        
 
-        var arrDubag=[]
-        this.setProdukts= function(){
-            arrDubag.push({
-                id:63772,
-                grundrissname:"Eichest. 1EG",
-                link:{
-                    src:"resources/image/startImage.png"
-                }
-            })
-            arrDubag.push({
-                id:63772,
-                grundrissname:"Eichest. 1EG",
-                link:{
-                    src:"resources/image/startImage.png"
-                }
-            })
-            
+        this.redragProdukts= function(){
+            this.gallary.start(this.objBase.array);
+            this.sizeWindow();                  
         }
 
 
-        this.dContXZ=undefined//new DCont(this.dCont)    
+        this.dContXZ=undefined;   
         this.init= function(){
             if(this.dContXZ!=undefined)return;
 
 
 
             this.dContXZ = new DCont(this.dCont) 
-            this.dContXZ.y=this.indent+this.sizeBase;
+            this.dContXZ.y=this.indent+this.sizeBase+45;
 
-            new DLabel(this.dContXZ,0,0,"id:")
-            this.input=new DInput(this.dContXZ,40,0," ",function(){
+
+            let xs=40;
+
+            new DLabel(this.dContXZ,xs,6,"id:")
+            this.input=new DInput(this.dContXZ,xs+30,0," ",function(){
 
             })
-            let l=new DLabel(this.dContXZ,this.input.x+this.input.width+this.indent,0,"Grundrissname:")
-            this.input1 = new DInput(this.dContXZ,l.x+140,0," ",function(){
+            this.input.height=26;
+            let l=new DLabel(this.dContXZ,this.input.x+this.input.width+this.indent+20,6,"Grundrissname:")
+
+            this.input1 = new DInput(this.dContXZ,l.x+120,0," ",function(){
 
             });
-            this.button=new DButton(this.dContXZ,this.input1.x+this.input1.width+this.indent,0,"Grundrissname:")
+            this.input1.height=26;
+            this.button=new DButton(this.dContXZ,this.input1.x+this.input1.width+this.indent+25,0,"Suchen",function(){         
+                self.objBase.array.push({id:self.input.text*1,grundrissname:self.input1.text,link:{src:"resources/image/startImage.png"},array:[]})
+                self.redragProdukts();
+            });
+            this.button.height=26;
+            this.button.color="#222222"
+            this.button.borderRadius=2
+            this.button.width=160
 
-            let yy=40
-            let xs=10
-            let xs1=300
-            l=new DLabel(this.dContXZ,xs+xs1*0,yy,"ID");
-            l=new DLabel(this.dContXZ,xs+xs1*1,yy,"GRUNDRISSNAME");
-            l=new DLabel(this.dContXZ,xs+xs1*2,yy,"STETUS");
-            l=new DLabel(this.dContXZ,xs+xs1*3,yy,"AKTIONEN");
-
-            var wPlus=1000;
-            var widthPic=1000;
-
-            this.gallary = new DGallT(this.dCont,0,this.dContXZ.y+100,this.down)
-            this.gallary.kolII=1;
-            this.gallary.widthPic=widthPic;
-            this.gallary.heightPic=48;
-            this.gallary.width=wPlus*2+widthPic;
-            this.gallary.height=48;            
-            this.gallary.otstup=2; 
+            let siZet=10
+            let yy=50
             
-           // this.gallary.start(this.arrayBD); 
-            //this.gallary.panel.visible=false;
+            let xs1=191;
+            l=new DLabel(this.dContXZ,xs+xs1*0,yy,"ID");
+            l.fontSize=siZet
+            l=new DLabel(this.dContXZ,xs+120,yy,"GRUNDRISSNAME");
+            l.fontSize=siZet
+            l=new DLabel(this.dContXZ,xs+355,yy,"STETUS");
+            l.fontSize=siZet
+            l=new DLabel(this.dContXZ,xs+512,yy,"AKTIONEN");
+            l.fontSize=siZet
 
+           
 
+            this.gallary = new DGallT(this.dCont,0,this.dContXZ.y+60,this.down,this)
+            this.gallary.widthMenu=this.widthMenu
+            this.gallary.kolII=1;
+            this.gallary.widthPic=this.widthMenu+wPlus*2-4;
+            this.gallary.heightPic=34;
+            this.gallary.width=this.widthMenu+wPlus*2;
+            this.gallary.height=500;            
+            this.gallary.otstup=2; 
+            this.gallary.wPlus=wPlus; 
+            this.gallary.panel.visible=false;  
+
+            
         }
 
 
-        this.init();
+        
+
+        this.setObj=function(o){
+            this.objBase=o;
+            this.init();
+            this.redragProdukts();
+        }
+
 
 
 
@@ -97,13 +117,33 @@ export class AM0Base extends AMBaza {
                 h=_h;
                 s=_s;
             }  
-            trace("###",_w)          
+            this.gallary.x=-wPlus+(_w/s-this.widthMenu)/2;
+            this.dContXZ.x=(_w/s-this.widthMenu)/2;
+                    
         }
   	}
 
+    set indexId(value) {
+        if (this._indexId != value) {
+            this._indexId = value;  
+            trace(">>>>>>>>>>>>>>",this._indexId)
+            for (var i = 0; i < this.gallary.array.length; i++) {
+                
+                if(this.gallary.array[i].object.id==this._indexId){
+                    this._index=-1;
+                    this.gallary._index=-1;
+                    this.index=i;
+                    return
+                }
+            }                               
+        }             
+    }
+    get indexId() { return this._indexId; }  
+
     set index(value) {
         if (this._index != value) {
-            this._index = value;                                 
+            this._index = value;  
+            this.gallary.index=value                               
         }             
     }
     get index() { return this._index; }
@@ -114,11 +154,13 @@ export class AM0Base extends AMBaza {
 
 
 
-function DGallT(dCont, _x, _y, _fun) {
-    DGallery.call(this, dCont, _x, _y, _fun);               
+function DGallT(dCont, _x, _y, _fun,par) {
+    DGallery.call(this, dCont, _x, _y, _fun);
+    this.widthMenu=par.widthMenu;               
     this.type="DGallT"; 
+    this.wPlus=0
     this.createZamen=function(){            
-        var r=new BoxXZ(this.content, 0, 0, this.downBtn);            
+        var r=new BoxXZ(this.content, 0, 0, this.downBtn, this);            
         return r;
     }    
 }
@@ -151,18 +193,64 @@ Object.defineProperties(DGallT.prototype, {
 
 
 
-function BoxXZ(dCont, _x, _y, _fun) {
+function BoxXZ(dCont, _x, _y, _fun, par) {
     DBox.call(this, dCont, _x, _y, _fun);
     this.type = 'BoxXZ';
-    var self=this
+    var self=this;
+    this.par=par;
 
     this.label.div.style.pointerEvents="none";
     this.label.textAlign="center";
     this.label.color="#000000"
     
+    this.label.x=this.par.wPlus+148
+    this.label.y=10
+    this.panel.boolLine=false
 
-    this.startLoad = function (_obj) {        
+    this.chek=new DCheckBox(this.content, this.par.wPlus,0," ",function(){
+
+    });
+    this.chek.label.x=40;
+
+
+
+    this.button=new DButton(this.content, this.par.wPlus+320,2,"completed",function(){
+        self.par.fun("completed",self.object)
+    });
+    this.button.width=160;
+    this.button.color="#10bf10"
+    this.button.borderRadius=2
+
+    this.l=new DLabel(this.content, 0,5,"Preview")   
+
+    this.button1=new DButton(this.content, 0,2,"",function(){
+        self.par.fun("preview",self.object)
+    });
+    this.button1.width=160;
+    
+    this.button1.label.color="#000000"
+    
+
+
+    this.button1.x=this.par.wPlus+this.par.widthMenu-this.button1.width
+    this.button.height=this.button1.height=par.heightPic-8;
+
+    this.l.x= this.button1.x+20
+    
+    //this.button1.panel.visible=false
+    this.button1.alpha = 0.01;
+
+    this.startLoad = function (_obj) {  
+        trace(_obj)
+        this.object = _obj;
+        this.label.text= _obj.grundrissname
         this.label.visible=true
+        this.chek.text=_obj.id+"";
+
+
+   
+
+       /* this.label.visible=true
         if(this.object!=undefined) {
             self.funLoad();
             return   
@@ -186,12 +274,18 @@ function BoxXZ(dCont, _x, _y, _fun) {
             }
         }else{
             if (self.funLoad) self.funLoad();
-        }
+        }*/
         this.draw();
+
+        self.funLoad();
     };
     var ss
     this.draw = function () {
-        let hh=this._height-30
+        this.image.visible=false;
+       /* this.label.x=100
+        this.label.y=10*/
+ 
+        /*let hh=this._height-30
         ss = (this._width - this._otstup * 2) / this.image.picWidth;
         if (ss > (hh - this._otstup * 2) / this.image.picHeight)ss = (hh - this._otstup * 2) / this.image.picHeight;
         this.image.x = 0;
@@ -206,7 +300,7 @@ function BoxXZ(dCont, _x, _y, _fun) {
 
         this.label.width=this.panel.width
 
-        if (this.postDraw) this.postDraw();
+        if (this.postDraw) this.postDraw();*/
     };
 
 
@@ -263,10 +357,10 @@ Object.defineProperties(BoxXZ.prototype, {
           
 
             if(this._activ){
-                this.image.link=this.object.src;
+                //this.image.link=this.object.src;
                 this.label.color="#93c32f"
             }else{
-                this.image.link=this.object.src1;
+                //this.image.link=this.object.src1;
                 this.label.color="#000000"
             }
 

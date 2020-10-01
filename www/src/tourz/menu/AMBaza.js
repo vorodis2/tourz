@@ -30,13 +30,13 @@ export class AMBaza  {
         this.postIn=undefined;
 
         this.init=function(){
-            if(this.window!=undefined)return
+            /*if(this.window!=undefined)return
             this.whSize=100//this.par.whSize;
             this.window=new DWindow(this.dCont,0,0,"xz");
             this.window.width=this.width;
             this.window.hasMinimizeButton=false;
             this.window.dragBool=false;
-            if(this.postIn!=undefined)this.postIn();
+            if(this.postIn!=undefined)this.postIn();*/
         }
 
         this.setObject=function(obj){

@@ -19,9 +19,9 @@ export class AMUp  {
 
         var arr=[
             {src:"resources/image/pic1.png",src1:"resources/image/pic3.png",text:"xz"},
-            {src:"resources/image/pic2.png",src1:"resources/image/pic3.png",text:"xz"},
-            {src:"resources/image/pic1.png",src1:"resources/image/pic3.png",text:"xz"},
-            {src:"resources/image/pic2.png",src1:"resources/image/pic3.png",text:"xz"}
+            {src:"resources/image/pic2.png",src1:"resources/image/pic3.png",text:"xz1"},
+            {src:"resources/image/pic1.png",src1:"resources/image/pic3.png",text:"xz2"},
+            {src:"resources/image/pic2.png",src1:"resources/image/pic3.png",text:"xz3"}
         ]
 
 
@@ -51,8 +51,7 @@ export class AMUp  {
 
     set index(value) {
         if (this._index != value) {
-            this._index = value;
-            trace(">>>>",value)
+            this._index = value;        
             for (var i = 0; i < this.array.length; i++) {
                // if(this.array[i]!=undefined){
                     if(i==value)this.array[i].active=true

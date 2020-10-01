@@ -23,7 +23,7 @@ import {PSave} from './PSave.js';
 import {PSetings} from './PSetings.js';*/
 import {AMUp} from './AMUp.js';
 import {AM0Base} from './AM0Base.js';
-
+import {AM1Gal} from './AM1Gal.js';
 export class AMenu  {
   	constructor(par,fun) {  		
   		this.type="AMenu";
@@ -31,6 +31,7 @@ export class AMenu  {
         this.par=par
         this.fun=fun
         this._index=-1;
+
        /* this._id=-1;
         this.debug=par.debug
         this.otstup=4;
@@ -41,6 +42,15 @@ export class AMenu  {
 
         this._indexSah=-1;*/
 
+        this.objBase=undefined
+        var objBase={}
+        objBase.array=[
+            {id:63772,grundrissname:"Eichest. 1EG",link:{src:"resources/image/startImage.png"},array:[]},
+            {id:63773,grundrissname:"Eichest. 1OG",link:{src:"resources/image/startImage.png"},array:[]}
+        ];
+
+
+        this.widthMenu=660;
         this.indent=mainBig.objectBase.settings.indent;
         this.sizeBase=mainBig.objectBase.settings.sizeBase;
 
@@ -56,8 +66,27 @@ export class AMenu  {
         });
 
         this.arrB[0]=this.array[this.array.length]=this.aM0Base=new AM0Base(this, function(s,p){            
+            trace(":::",s,p)
             if(s=="index")self.index=p;
+            if(s=="completed")self.indexId=p;
         });
+
+        this.arrB[1]=this.array[this.array.length]=this.aM1Gal=new AM1Gal(this, function(s,p){            
+            trace(":::",s,p)
+            
+        });
+
+
+
+
+
+        this.setObj=function(o){
+            this.objBase=o
+            this.aM0Base.setObj(o); 
+            this.aM1Gal.setObj(o); 
+        }
+
+        this.setObj(objBase)
 
 
 
@@ -83,7 +112,16 @@ export class AMenu  {
             }
         }            
     }
-    get index() { return this._index; }   
+    get index() { return this._index; } 
+
+    set indexId(value) {
+        if (this._indexId != value) {
+            this._indexId = value;             
+            this.aM0Base.indexId=value;
+            this.aM1Gal.indexId=value;                                          
+        }             
+    }
+    get indexId() { return this._indexId; }    
 }
 
 
