@@ -1,3 +1,3 @@
-import { Main} from './panorama/Main.js';
+import { Main} from './tourz/Main.js';
 global.Main = Main;
 export { Main};
