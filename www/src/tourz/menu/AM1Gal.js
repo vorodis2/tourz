@@ -37,8 +37,8 @@ export class AM1Gal extends AMBaza {
         this.gallary = new DGT(this.dContXZ,0,60,this.down,this)
         this.gallary.widthMenu=this.widthMenu
         this.gallary.kolII=4;
-        this.gallary.widthPic=this.widthMenu/this.gallary.kolII-4;
-        this.gallary.heightPic=150;
+        this.gallary.widthPic=160//this.widthMenu/this.gallary.kolII-4;
+        this.gallary.heightPic=120;
         this.gallary.width=this.widthMenu;
         this.gallary.height=500;            
         this.gallary.otstup=2;       
@@ -65,9 +65,7 @@ export class AM1Gal extends AMBaza {
         
 
         this.b=new DButton(this.dContXZ, 700,0,"<",function(){
-            trace(self.oB.array)
-
-            self.oB.array.push({
+                self.oB.array.push({
                 text:self.i2.text,
                 icon:self.i1.text,
                 pic:self.i.text
@@ -268,32 +266,6 @@ function BXZ(dCont, _x, _y, _fun, par) {
         this.image.image.removeEventListener("mouseover", this.mouseOver); 
     }
 
-   /* this.mouseOver = function (e) {
-        self.boolOut = false;
-        
-        if(self._activ==false)self.panel.color1=dcmParam.compToHexArray(dcmParam.hexDec(self._color1), -5);
-        else self.panel.color1=dcmParam.compToHexArray(dcmParam.hexDec(self._color), -5);
-        if (self.funOver) self.funOver(self);
-    };
-    this.mouseOut = function (e) {      
-        
-        if(self._activ==false)self.panel.color1=self._color1;
-        else self.panel.color1=self._color;
-
-        if (self.funOut) self.funOut(self);
-    };
-
-
-
-    if(dcmParam.mobile==false){
-
-        this.panel.div.addEventListener("mouseout", this.mouseOut);
-        this.image.image.addEventListener("mouseout", this.mouseOut);
-
-        this.panel.div.addEventListener("mouseover", this.mouseOver);
-        this.image.image.addEventListener("mouseover", this.mouseOver);  
-
-    }*/
 
 
 

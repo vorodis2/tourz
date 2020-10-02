@@ -1,7 +1,7 @@
 /*import { MLeft } from './MLeft.js';
 import { MVerh } from './MVerh.js';
 import { MObject } from './MObject.js';
-import { DragPic } from './DragPic.js';
+
 import { MProdject } from './MProdject.js';
 import MStepInfo from './MStepInfo'
 import MTipVisi from './MTipVisi'
@@ -24,6 +24,10 @@ import {PSetings} from './PSetings.js';*/
 import {AMUp} from './AMUp.js';
 import {AM0Base} from './AM0Base.js';
 import {AM1Gal} from './AM1Gal.js';
+import {AM2Assign} from './AM2Assign.js';
+import {AM3Final} from './AM3Final.js';
+
+
 export class AMenu  {
   	constructor(par,fun) {  		
   		this.type="AMenu";
@@ -42,12 +46,27 @@ export class AMenu  {
 
         this._indexSah=-1;*/
 
+        
+
         this.objBase=undefined
         var objBase={}
         objBase.array=[
-            {id:63772,grundrissname:"Eichest. 1EG",link:{src:"resources/image/startImage.png"},array:[]},
-            {id:63773,grundrissname:"Eichest. 1OG",link:{src:"resources/image/startImage.png"},array:[]}
+            
+            {id:63773,grundrissname:"Eichest. 1OG",link:{src:"resources/image/startImage.png"},array:[
+                {text:"name 1",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
+                {text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t0.png"},
+                {text:"name 3",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
+                {text:"name 4",icon:"resources/image/360.png",pic:"resources/image/t0.png"},
+                {text:"name 5",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
+                {text:"name 6",icon:"resources/image/360.png",pic:"resources/image/t0.png"}
+            ]},
+            {id:63772,grundrissname:"Eichest. 1EG",link:{src:"resources/image/startImage.png"},array:[
+                {text:"name 1",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
+                {text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t0.png"}
+            ]}
         ];
+
+
 
 
         this.widthMenu=660;
@@ -58,7 +77,17 @@ export class AMenu  {
         this.arrB=[];
         this.dCont=new DCont(par.dCont);
 
+        
+        this.ddragPic=new DDragPic(this.dCont);
+
+        var dd=new DPanel(this.dCont)
+        dd.width=5000
+        dd.height=5000
         this.dCont1=new DCont(this.dCont);
+
+
+
+
 
         
         this.array[this.array.length]=this.aMUp=new AMUp(this, function(s,p){            
@@ -66,15 +95,28 @@ export class AMenu  {
         });
 
         this.arrB[0]=this.array[this.array.length]=this.aM0Base=new AM0Base(this, function(s,p){            
-            trace(":::",s,p)
+            
             if(s=="index")self.index=p;
             if(s=="completed")self.indexId=p;
         });
 
         this.arrB[1]=this.array[this.array.length]=this.aM1Gal=new AM1Gal(this, function(s,p){            
+            trace(":::",s,p)            
+        });
+
+
+        this.arrB[2]=this.array[this.array.length]=this.aM2Assign=new AM2Assign(this, function(s,p){            
             trace(":::",s,p)
             
         });
+
+        this.arrB[3]=this.array[this.array.length]=this.aM3Final=new AM3Final(this, function(s,p){            
+            trace(":::",s,p)
+            
+        });
+
+        
+        
 
 
 
@@ -83,10 +125,12 @@ export class AMenu  {
         this.setObj=function(o){
             this.objBase=o
             this.aM0Base.setObj(o); 
-            this.aM1Gal.setObj(o); 
+            this.aM1Gal.setObj(o);
+            this.aM2Assign.setObj(o); 
         }
 
         this.setObj(objBase)
+        this.indexId=objBase.array[0].id
 
 
 
@@ -95,7 +139,8 @@ export class AMenu  {
                 if(this.array[i])if(this.array[i].sizeWindow){
                     this.array[i].sizeWindow(w,h,s)             
                 }
-            }          
+            }  
+            dd.x=w/2        
         }
 
     }
@@ -118,7 +163,8 @@ export class AMenu  {
         if (this._indexId != value) {
             this._indexId = value;             
             this.aM0Base.indexId=value;
-            this.aM1Gal.indexId=value;                                          
+            this.aM1Gal.indexId=value; 
+            this.aM2Assign.indexId=value;                                         
         }             
     }
     get indexId() { return this._indexId; }    
