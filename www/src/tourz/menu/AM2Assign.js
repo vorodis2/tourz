@@ -4,6 +4,7 @@
 
 import { AMBaza } from './AMBaza.js';
 import { AM2APlan } from './AM2APlan.js';
+import { AM2AView } from './AM2AView.js';
 
 export class AM2Assign extends AMBaza {
   	constructor(par,fun) {  
@@ -21,7 +22,7 @@ export class AM2Assign extends AMBaza {
         this._oB=undefined;
 
         this.ddragPic=par.ddragPic;
-        //self.ddragPic.testDrag(35, self.clik1, self.drag1);
+        
         
 
         this.dContXZ = new DCont(this.dCont) 
@@ -30,39 +31,52 @@ export class AM2Assign extends AMBaza {
       
 
         this.am2aPlan = new AM2APlan(this,function(s,p){
-            
+            if(s=="index")self.index=p;
+            if(s=="saveTime")self.fun("saveTime")
         });
-        this.am2aPlan.dCont.x =this.widthMenu/2
-             
+        this.am2aPlan.dCont.x =this.widthMenu/2;
 
-        //.start
+        this.am2aView = new AM2AView(this,function(s,p){
+            if(s=="index")self.index=p;
+            if(s=="fun_rotationZ")self.am2aPlan.setRotation(p)
+        });
+        this.am2aView.width=this.widthMenu/2-5;
+        this.am2aView.height=this.widthMenu/2-5;
+
+
+
+
+
 
         this.up=function(){
-            self.am2aPlan.addObj(self.ddragPic.object,{x:self.ddragPic.dCont.x,y:self.ddragPic.dCont.y})
-            self.openArrId()
+            let o=self.par.fXYP(self.am2aPlan.dCont);
+            let o1={}
+            o1.x=(self.ddragPic.dCont.x*self.ddragPic.oSc.s-o.x)/self.ddragPic.oSc.s
+            o1.y=(self.ddragPic.dCont.y*self.ddragPic.oSc.s-o.y)/self.ddragPic.oSc.s    
+            o1.s= self.ddragPic.oSc.s    
+            self.am2aPlan.addObj(self.ddragPic.object,o1)
+            self.openArrId();
         }
 
         this.down=function(){
             self.dragO(this.array[this.index].object);             
         }
         this.dragO=function(o){
-            self.ddragPic.start(32,"resources/image/dragPint.png",o,self.up)    
+            self.ddragPic.start(32,"resources/image/dragPint.png",o,self.up) 
+            self.am2aPlan.remuveObj(o); 
+            self.openArrId();
         }
        
 
         this.gallary = new DGT1(this.dContXZ,0,0,this.down,this)
-        this.gallary.widthMenu=this.widthMenu
+        this.gallary.widthMenu=this.widthMenu;
         this.gallary.kolII=2;
         this.gallary.widthPic=160//this.widthMenu/this.gallary.kolII-4;
         this.gallary.heightPic=120;
         this.gallary.width=this.widthMenu;
         this.gallary.height=500;            
         this.gallary.otstup=2;       
-        this.gallary.panel.visible=false; 
-
-
-
-
+        this.gallary.panel.visible=false;
         
 
         ///////////////////////
@@ -81,10 +95,26 @@ export class AM2Assign extends AMBaza {
                 if(a[i].position==undefined)a[i].position={x:0,y:0};
                 if(a[i].rotation==undefined)a[i].rotation=0;
                 if(a[i].id==undefined)a[i].id=Math.round(Math.random()*9999999);
+                if(a[i].rotation==undefined)a[i].rotation=0;
+                if(a[i].rPlus==undefined)a[i].rPlus=0;
             }
-            this.gallary.start(a);  
+            this.gallary.start(a); 
+            this.am2aPlan.start(a);  
         }
 
+
+        this.dragIndex= function(){
+            let b=false;
+            this.am2aPlan.index=this._index;
+            if(this._index!=-1){
+                this.am2aView.setObj(this.am2aPlan.array[this._index].object)
+                this.am2aView.active=true;
+                this.gallary.visible=false;
+            }else{
+                this.am2aView.active=false;
+                this.gallary.visible=true;
+            }
+        }
 
         var w,h,s;
         this.sizeWindow = function(_w,_h,_s){             
@@ -94,11 +124,24 @@ export class AM2Assign extends AMBaza {
                 s=_s;
             }  
             this.dContXZ.x=_w/2/_s-this.widthMenu/2; 
-            this.am2aPlan.sizeWindow(_w,_h,_s)                  
+            this.am2aPlan.sizeWindow(_w,_h,_s); 
+
+
+
         }
   	}
 
-   set indexId(value) {
+    //index
+    set index(value) {
+        if (this._index != value) {
+            this._index = value;  
+            this.dragIndex();                                        
+        }             
+    }
+    get index() { return this._index; }  
+
+
+    set indexId(value) {
         if (this._indexId != value) {
             this._indexId = value;  
             this.oB=undefined;

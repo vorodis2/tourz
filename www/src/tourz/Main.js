@@ -25,13 +25,11 @@ export class Main  {
 		self.confText=null 
         this.localStorage=undefined;
         this.debug=false;
-        this.debugDev=false;
+
         this.basaComp=undefined;
         this.xzBase=null
 
-        if(tip==0){this.debug=false;this.debugDev=false;}
-        if(tip==1){this.debug=true;this.debugDev=false;}
-        if(tip==2){this.debug=true;this.debugDev=true;}
+
 
 		this.contentHTML= document.createElement('div');
 		this.contentHTML.style.position = 'fixed';
@@ -58,8 +56,8 @@ export class Main  {
            		}
            	});
           
-           //if(self.localStorage.object.debug == undefined)self.localStorage.object.debug = true;            
-            //this.debug=self.localStorage.object.debug; 
+            if(self.localStorage.object.debug == undefined)self.localStorage.object.debug = true;            
+            this.debug=self.localStorage.object.debug; 
 
             this.fina();
 		};
@@ -88,7 +86,7 @@ export class Main  {
 			requestAnimationFrame(self.tick );			
 		}
 
-		/*this.boolCTRL=false
+		this.boolCTRL=false
 		this.keydown=function(event){
 			trace(event.keyCode)
 	        if(event.keyCode==17)self.boolCTRL=true
@@ -104,7 +102,7 @@ export class Main  {
 	    }
 
 	    window.addEventListener( 'keydown', this.keydown );    
-	    window.addEventListener( 'keyup', this.keyup ); */ 
+	    window.addEventListener( 'keyup', this.keyup );  
 
 		//Маштабим окна 
 		this.scale=1;

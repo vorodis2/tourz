@@ -10,6 +10,7 @@ export class AM1Gal extends AMBaza {
   		this.type="AM1Gal";
   		var self=this;
         this.fun=fun;
+        this.par=par;
 
         this._active=false;
         this._indexId=-1;
@@ -71,7 +72,8 @@ export class AM1Gal extends AMBaza {
                 pic:self.i.text
             });
             self.oB=self.oB
-
+            
+            self.fun("saveTime")
         });
         this.b.width=this.b.height
         

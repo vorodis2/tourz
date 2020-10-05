@@ -27,6 +27,7 @@ import {AM1Gal} from './AM1Gal.js';
 import {AM2Assign} from './AM2Assign.js';
 import {AM3Final} from './AM3Final.js';
 
+import {AMDebag} from './AMDebag.js';
 
 export class AMenu  {
   	constructor(par,fun) {  		
@@ -50,8 +51,7 @@ export class AMenu  {
 
         this.objBase=undefined
         var objBase={}
-        objBase.array=[
-            
+        objBase.array=[            
             {id:63773,grundrissname:"Eichest. 1OG",link:{src:"resources/image/startImage.png"},array:[
                 {text:"name 1",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
                 {text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t0.png"},
@@ -79,7 +79,7 @@ export class AMenu  {
 
         
         this.ddragPic=new DDragPic(this.dCont);
-
+        this.ddragPic.pointZdvig.x=0
         var dd=new DPanel(this.dCont)
         dd.width=5000
         dd.height=5000
@@ -87,39 +87,57 @@ export class AMenu  {
 
 
 
-
-
         
         this.array[this.array.length]=this.aMUp=new AMUp(this, function(s,p){            
             if(s=="index")self.index=p;
+            if(s=="saveTime")self.saveTime()
         });
 
         this.arrB[0]=this.array[this.array.length]=this.aM0Base=new AM0Base(this, function(s,p){            
             
             if(s=="index")self.index=p;
             if(s=="completed")self.indexId=p;
+            if(s=="saveTime")self.saveTime()
         });
 
         this.arrB[1]=this.array[this.array.length]=this.aM1Gal=new AM1Gal(this, function(s,p){            
-            trace(":::",s,p)            
+            trace(":::",s,p) 
+            if(s=="saveTime")self.saveTime()          
         });
 
 
         this.arrB[2]=this.array[this.array.length]=this.aM2Assign=new AM2Assign(this, function(s,p){            
             trace(":::",s,p)
+            if(s=="saveTime")self.saveTime()
             
         });
 
         this.arrB[3]=this.array[this.array.length]=this.aM3Final=new AM3Final(this, function(s,p){            
-            trace(":::",s,p)
-            
+            trace(":::",s,p) 
+            if(s=="saveTime")self.saveTime()           
         });
 
-        
-        
 
 
+        this.array[this.array.length]=this.aMDebag=new AMDebag(this, function(s,p){            
+            
+        });
+        if(this.aMDebag.getLocMoel()!=false){
+            this.objBase=objBase=this.aMDebag.getLocMoel()
+        }
 
+
+        this.save1=function(){             
+            this.aMDebag.save(this.objBase);
+        } 
+        this.sah=0;
+        this.saveTime=function(){
+            this.sah++;
+            var s=this.sah;
+            setTimeout(function() {
+                if(self.sah==s)self.save1()
+            }, 500);
+        } 
 
 
         this.setObj=function(o){
@@ -140,8 +158,30 @@ export class AMenu  {
                     this.array[i].sizeWindow(w,h,s)             
                 }
             }  
-            dd.x=w/2        
+            dd.x=w/2/s;       
         }
+
+        this.xyp={x:0,y:0,s:1}
+        this.fXYP=function(c){
+            this.xyp.x=this.xyp.y=0;
+            this.xyp.s=1
+            this.fXYS(c,this.xyp)
+            return this.xyp; 
+        }
+        this.fXYS=function(c,o){
+            o.x*=c._scale;
+            o.y*=c._scale;
+            o.s*=c._scale;
+            
+            o.x+=c.position._x;
+            o.y+=c.position._y;
+            if(c.visible==false)o.y+=99999
+        
+            if(c.parent!=undefined){                
+                self.fXYS(c.parent, o)              
+            }
+        }
+
 
     }
 
@@ -171,258 +211,3 @@ export class AMenu  {
 }
 
 
-        /*this.array[this.array.length]=this.pMap=new PMap(this, function(s,p){
-            self.fun(s,p);
-        });   
-
-        this.array[this.array.length]=this.pNiz=new PNiz(this, function(s,p){
-            self.fun(s,p);
-        });
-
-      
-
-        this.array[this.array.length]=this.pPoint=new PPoint(this, function(s,p){
-            self.fun(s,p);
-        });
-
-        this.array[this.array.length]=this.pAddFloor=new PAddFloor(this, function(s,p){
-            self.fun(s,p);
-        });
-
-        this.array[this.array.length]=this.pCamPositions=new PCamPositions(this, function(s,p){
-            self.fun(s,p);
-        });
-
-        this.array[this.array.length]=this.pLeftVerg=new PLeftVerg(this, function(s,p){
-            self.fun(s,p);
-        });    
-
-        this.array[this.array.length]=this.pSave=new PSave(this, function(s,p){
-            self.fun(s,p);
-        });
-
-
-        this.array[this.array.length]=this.pSetings=new PSetings(this, function(s,p){
-            self.fun(s,p);
-        });
-
-        this.array[this.array.length]=this.pCentorVerg=new PCentorVerg(this, function(s,p){
-            self.fun(s,p);
-        });
-
-        this.array[this.array.length]=this.pLoader=new PLoader(this, function(s,p){
-            self.fun(s,p);
-        });
-
-        if(mainBig.debug==true){
-            this.pCentorVerg.addMenu(this.pAddFloor);
-            this.pCentorVerg.addMenu(this.pMap);
-            //this.pCentorVerg.addMenu(this.pCamPositions)
-            this.pCentorVerg.addMenu(this.pPoint);
-            this.pCentorVerg.addMenu(this.pNiz);
-            
-        }
-
-
-
-        this.setIndexBasa= function(p) {          
-            this.pPoint.setIndexBasa(p) 
-        }
-
-        this.fun_rotationZ= function() {          
-            this.pPoint.fun_rotationZ() 
-        }
-
-        this.update = function () { 
-            this.pLoader.update()
-        }*/
-
-
-
-  		
-/*
-        this.setObj= function(o){
-                                         
-        }
-
-  	}
-
-    set index(value) {
-        if (this._index != value) {
-            this._index = value; 
-            this.pPoint.index = value;
-            this.pMap.index = value;
-        }        
-            
-    }
-    get index() { return this._index; }
-
-    
-
-
-    set indexSah(value) {
-        if (this._indexSah != value) {
-            this._indexSah = value; 
-            //this.pCentorVerg.indexSah=value;
-           // this.pNiz.indexSah=value;
-           // this.pMap.indexSah=value;
-            //this.pPoint.indexSah=value;
-        }        
-            
-    }
-    get indexSah() { return this._indexSah; }
-}
-
-
-/*
-import { MOBaza } from './MOBaza.js';
-
-export class PLoader extends MOBaza {
-    constructor(par,fun) {  
-        super(par,fun);
-        this.type="PLoader";
-        this._active=false
-        var self=this;
-
-        this.dCont=new DCont();
-        //this.dCont.visible=this._active;
-
-        this.panel=new DPanel(this.dCont);
-        
-        //this.panel.div.
-
-
-        this.panel.alpha=0.7;
-        this.dCL11=new DCont(this.dCont);
-        this.dCL=new DCont(this.dCL11);
-       
-        this.time=500;
-        this.image=new DImage(this.dCL, -50,-50,"resources/image/pre.png");
-
-        if(mainBig.debugDev==true){
-            this.window=new DWindow(par.par.dCont,200,20,"xz")
-            this.bb=new DButton(this.window.content, 0,0,"start",function(){
-                self.start(self.time);
-            })
-            this.bb1=new DButton(this.window.content, 0,32,"stop",function(){
-                self.stop(self.time);
-            })
-
-            this.slid=new DSliderBig(this.window.content, 0,64,function(){
-               self.time=this.value;
-            },"time",0,2000);
-
-            this.slid.value=self.time
-        }
-
-        var p={n:0}
-        this.drar = function () {  
-            self.dCont.alpha=p.n+0.5
-        }
-
-        this.tween = new TWEEN.Tween(p);
-        this.tween.onUpdate(function(){
-            self.drar()
-        })
-        this.tween.onComplete(function(){            
-            if(bStart==false){
-                self.active=false;
-            }
-        })
-
-        var bStart=false
-        this.start = function (time) { 
-            console.warn(">>start::",time);  
-            this.tween.stop()
-            if(bStart == false){
-                bStart = true;
-                this.active=true;
-                if(time==0){
-                    p.n=1
-                    this.drar()
-                } else{
-                    p.n=0
-                    this.tween.to({n:1},time).start();
-                    this.drar()
-                }
-            }
-        }
-
-        visi3D.utility.sky.onLoad=function(){            
-            self.start(self.time)
-        }
-        visi3D.utility.sky.onComplete=function(){           
-            self.stop(self.time)
-        }
-
-
-        this.stop = function (time) { 
-            trace(">>stop::",time);  
-            this.tween.stop()
-            bStart=false;
-            if(time==0){
-                this.active=false;
-            } else{
-                this.tween.to({n:0},time).start();
-                this.drar()
-            }
-
-        }
-        //this.start(0)
-
-        var deg =0
-        this.update = function () { 
-            if (this._active == false) return           
-            deg+=2;
-            this.dCL.div.style.webkitTransform = 'rotate('+deg+'deg)'; 
-            this.dCL.div.style.mozTransform    = 'rotate('+deg+'deg)'; 
-            this.dCL.div.style.msTransform     = 'rotate('+deg+'deg)'; 
-            this.dCL.div.style.oTransform      = 'rotate('+deg+'deg)'; 
-            this.dCL.div.style.transform       = 'rotate('+deg+'deg)'; 
-
-            visi3D.intRend=1          
-        }
-
-
-        var w,h,s
-
-        this.sizeWindow = function(_w,_h,_s){ 
-            if(_w){
-                w=_w;
-                h=_h;
-                s=_s;
-            }
-
-           // if(this._active==true){
-               this.panel.width=w/s;
-                this.panel.height=h/s;
-                this.dCL11.x=w/s/2;
-                this.dCL11.y=h/s/2;   
-          
-            
-
-        }
-
-
-
-
-    }
-
-    set active(value) {
-        if (this._active != value) {
-            this._active = value;  
-            visi3D.alwaysRender= value; 
-            this.dCont.visible=value;            
-            if(value){
-                this.par.dCont.add(this.dCont)
-                this.panel.x=0;
-            } else{
-                this.par.dCont.remove(this.dCont)
-            }   
-            
-        }
-    }
-    get active() { return this._active; } 
-
-
-}*/

@@ -14,7 +14,7 @@ export class AMBaza  {
         this.otstup=2//this.par.otstup;
         this.otstup1=10//this.par.otstup1;
         this.wh=100//this.par.wh;
-        this.width=100//this.par.width;
+        //this.width=100//this.par.width;
         this.whSize=100//this.par.whSize;
 
 

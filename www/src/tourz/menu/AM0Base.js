@@ -21,10 +21,10 @@ export class AM0Base extends AMBaza {
         
 
 
-        this.down= function(s,p){ 
-                      
+        this.down= function(s,p){                       
             if(s=="completed")self.fun(s,p.id);//self.indexId=p.id;
             if(s=="preview")self.fun(s,p);
+
         } 
 
 
@@ -63,6 +63,7 @@ export class AM0Base extends AMBaza {
             this.button=new DButton(this.dContXZ,this.input1.x+this.input1.width+this.indent+25,0,"Suchen",function(){         
                 self.objBase.array.push({id:self.input.text*1,grundrissname:self.input1.text,link:{src:"resources/image/startImage.png"},array:[]})
                 self.redragProdukts();
+                self.fun("saveTime")
             });
             this.button.height=26;
             this.button.color="#222222"
