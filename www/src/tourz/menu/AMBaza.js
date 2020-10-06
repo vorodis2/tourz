@@ -29,6 +29,11 @@ export class AMBaza  {
         this.postSO=undefined;
         this.postIn=undefined;
 
+        this.bRadius=par.bRadius;
+        this.minBR=par.minBR;
+        this.colorAct=par.colorAct;
+        this.time=par.time;
+
         this.init=function(){
             /*if(this.window!=undefined)return
             this.whSize=100//this.par.whSize;
@@ -61,15 +66,14 @@ export class AMBaza  {
                 h=_h;
                 s=_s;
             }            
-        }
-        
+        }        
   	}
 
     set active(value) {
         if(this._active!=value){
             this._active= value;
             this.dCont.visible= value; 
-            if(this.init!=undefined)    this.init();
+            if(this.init!=undefined)this.init();
         }
     }    
     get active() { return  this._active;}

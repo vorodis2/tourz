@@ -42,8 +42,9 @@ export class AM1Gal extends AMBaza {
         this.gallary.heightPic=120;
         this.gallary.width=this.widthMenu;
         this.gallary.height=500;            
-        this.gallary.otstup=2;       
+        this.gallary.otstup=2;  
         this.gallary.panel.visible=false; 
+        this.gallary.bRadius=this.par.bRadius
 
 
         /*__________________________________________*/ 
@@ -136,6 +137,8 @@ export class AM1Gal extends AMBaza {
 function DGT(dCont, _x, _y, _fun,par) {
     DGallery.call(this, dCont, _x, _y, _fun);              
     this.type="DGT";
+    this.bRadius=4
+
     this.createZamen=function(){            
         var r=new BXZ(this.content, 0, 0, this.downBtn, this);            
         return r;
@@ -184,9 +187,15 @@ function BXZ(dCont, _x, _y, _fun, par) {
     this.label.y=10
     this.panel.boolLine=false
 
+    this.panel.borderRadius =this.par.bRadius;
 
-    
+    var ss=42; 
+    var s=this.par.bRadius//ss
+    this.image.image.style.borderRadius=""+s+"px "+s+"px 0 0";
+    var sss="rect(0px "+this.par.widthMenu+"px "+(this.par.heightPic-24)+"px 0px)";
+    this.image.div2.style.clip = sss;
 
+   //div2.
 
     this.startLoad = function (_obj) {  
        
@@ -233,29 +242,32 @@ function BXZ(dCont, _x, _y, _fun, par) {
 
         self.funLoad();
     };
+
     var ss
-    /*this.draw = function () {
+    this.draw = function () {
         this.image.visible=false;
         this.label.x=100
-        this.label.y=10*/
+        this.label.y=10
  
-        /*let hh=this._height-30
-        ss = (this._width - this._otstup * 2) / this.image.picWidth;
-        if (ss > (hh - this._otstup * 2) / this.image.picHeight)ss = (hh - this._otstup * 2) / this.image.picHeight;
+        let hh=this._height-30
+        ss = (this._width - this._otstup * 4) / this.image.picWidth;
+        //if (ss > (hh - this._otstup * 2) / this.image.picHeight)ss = (hh - this._otstup * 2) / this.image.picHeight;
         this.image.x = 0;
         this.image.width=this.image.picWidth*ss;
         this.image.height=this.image.picHeight*ss;
 
         this.image.x = (this._width - this.image.picWidth * ss) / 2;
-        this.image.y = (this._height - this.image.picHeight * ss) / 2-10;
+        this.image.y = this._otstup//(this._height - this.image.picHeight * ss) / 2-10;
 
         this.label.x = 2//(this._width - this.label.curW) / 2;
         this.label.y = this._height - 20;
 
         this.label.width=this.panel.width
 
+        
+
         if (this.postDraw) this.postDraw();
-    };*/
+    };
 
 
 

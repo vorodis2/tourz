@@ -37,6 +37,14 @@ export class AMenu  {
         this.fun=fun
         this._index=-1;
 
+        this.bRadius=8;
+        this.minBR=4;
+        this.colorAct="#c7edfc"
+        this.time=500
+
+        dcmParam.color="#dddddd"
+        dcmParam.colorText1="#222222"
+
        /* this._id=-1;
         this.debug=par.debug
         this.otstup=4;
@@ -91,6 +99,7 @@ export class AMenu  {
         this.array[this.array.length]=this.aMUp=new AMUp(this, function(s,p){            
             if(s=="index")self.index=p;
             if(s=="saveTime")self.saveTime()
+            if(s=="animatActiv")self.animatActiv()    
         });
 
         this.arrB[0]=this.array[this.array.length]=this.aM0Base=new AM0Base(this, function(s,p){            
@@ -179,6 +188,14 @@ export class AMenu  {
         
             if(c.parent!=undefined){                
                 self.fXYS(c.parent, o)              
+            }
+        }
+
+        this.animatActiv=function(){
+            for (var i = 0; i < this.array.length; i++) {  
+                if(this.array[i])if(this.array[i].animatActiv){
+                    this.array[i].animatActiv();
+                }
             }
         }
 

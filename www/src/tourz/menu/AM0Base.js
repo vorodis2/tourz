@@ -18,13 +18,14 @@ export class AM0Base extends AMBaza {
         this.widthMenu=par.widthMenu
         this.objBase=undefined
         var wPlus=2200;
+
+
         
 
 
         this.down= function(s,p){                       
             if(s=="completed")self.fun(s,p.id);//self.indexId=p.id;
             if(s=="preview")self.fun(s,p);
-
         } 
 
 
@@ -33,6 +34,9 @@ export class AM0Base extends AMBaza {
 
         this.redragProdukts= function(){
             this.gallary.start(this.objBase.array);
+            let yy=this.objBase.array.length*(this.gallary.heightPic+2)+2
+            if(yy>300)yy=300
+            this.gallary.height=yy
             this.sizeWindow();                  
         }
 
@@ -54,6 +58,8 @@ export class AM0Base extends AMBaza {
 
             })
             this.input.height=26;
+
+
             let l=new DLabel(this.dContXZ,this.input.x+this.input.width+this.indent+20,6,"Grundrissname:")
 
             this.input1 = new DInput(this.dContXZ,l.x+120,0," ",function(){
@@ -67,8 +73,10 @@ export class AM0Base extends AMBaza {
             });
             this.button.height=26;
             this.button.color="#222222"
-            this.button.borderRadius=2
+            
             this.button.width=160
+            trace(">>>>>>>>>>>>>>>>>@@@>",this.minBR)
+            this.input.borderRadius=this.input1.borderRadius=this.button.borderRadius=this.minBR
 
             let siZet=10
             let yy=50
@@ -76,9 +84,9 @@ export class AM0Base extends AMBaza {
             let xs1=191;
             l=new DLabel(this.dContXZ,xs+xs1*0,yy,"ID");
             l.fontSize=siZet
-            l=new DLabel(this.dContXZ,xs+120,yy,"GRUNDRISSNAME");
+            l=new DLabel(this.dContXZ,xs+115,yy,"GRUNDRISSNAME");
             l.fontSize=siZet
-            l=new DLabel(this.dContXZ,xs+355,yy,"STETUS");
+            l=new DLabel(this.dContXZ,xs+345,yy,"STETUS");
             l.fontSize=siZet
             l=new DLabel(this.dContXZ,xs+512,yy,"AKTIONEN");
             l.fontSize=siZet
@@ -94,8 +102,8 @@ export class AM0Base extends AMBaza {
             this.gallary.height=500;            
             this.gallary.otstup=2; 
             this.gallary.wPlus=wPlus; 
-            this.gallary.panel.visible=false;  
-
+            //this.gallary.panel.visible=false;  
+            this.gallary.minBR=this.minBR
             
         }
 
@@ -127,7 +135,7 @@ export class AM0Base extends AMBaza {
     set indexId(value) {
         if (this._indexId != value) {
             this._indexId = value;  
-            trace(">>>>>>>>>>>>>>",this._indexId)
+    
             for (var i = 0; i < this.gallary.array.length; i++) {
                 
                 if(this.gallary.array[i].object.id==this._indexId){
@@ -160,6 +168,7 @@ function DGallT(dCont, _x, _y, _fun,par) {
     this.widthMenu=par.widthMenu;               
     this.type="DGallT"; 
     this.wPlus=0
+    this.minBR=4
     this.createZamen=function(){            
         var r=new BoxXZ(this.content, 0, 0, this.downBtn, this);            
         return r;
@@ -219,21 +228,22 @@ function BoxXZ(dCont, _x, _y, _fun, par) {
         self.par.fun("completed",self.object)
     });
     this.button.width=160;
-    this.button.color="#10bf10"
-    this.button.borderRadius=2
+    this.button.color="#10bf10";
+    this.button.borderRadius=this.par.minBR
+    
 
-    this.l=new DLabel(this.content, 0,5,"Preview")   
+    this.l=new DLabel(this.content, 0,8,"Preview")   
 
     this.button1=new DButton(this.content, 0,2,"",function(){
         self.par.fun("preview",self.object)
     });
     this.button1.width=160;
     
-    this.button1.label.color="#000000"
+    //this.button1.label.color="#000000"
     
+    this.label.color=dcmParam.colorText1
 
-
-    this.button1.x=this.par.wPlus+this.par.widthMenu-this.button1.width
+    this.button1.x=this.par.wPlus+this.par.widthMenu-this.button1.width+30
     this.button.height=this.button1.height=par.heightPic-8;
 
     this.l.x= this.button1.x+20
@@ -359,10 +369,10 @@ Object.defineProperties(BoxXZ.prototype, {
 
             if(this._activ){
                 //this.image.link=this.object.src;
-                this.label.color="#93c32f"
+                //this.label.color="#93c32f"
             }else{
                 //this.image.link=this.object.src1;
-                this.label.color="#000000"
+                //this.label.color="#000000"
             }
 
             if(this._activ==false)this.panel.color1=this._color1;

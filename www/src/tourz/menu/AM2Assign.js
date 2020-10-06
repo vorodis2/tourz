@@ -42,7 +42,8 @@ export class AM2Assign extends AMBaza {
         });
         this.am2aView.width=this.widthMenu/2-5;
         this.am2aView.height=this.widthMenu/2-5;
-
+        this.am2aView._active=true
+        this.am2aView.active=false
 
 
 
@@ -68,14 +69,15 @@ export class AM2Assign extends AMBaza {
         }
        
 
-        this.gallary = new DGT1(this.dContXZ,0,0,this.down,this)
+        this.gallary = new DGT1(this.dContXZ,-7,0,this.down,this)
         this.gallary.widthMenu=this.widthMenu;
         this.gallary.kolII=2;
         this.gallary.widthPic=160//this.widthMenu/this.gallary.kolII-4;
-        this.gallary.heightPic=120;
+        this.gallary.heightPic=130;
         this.gallary.width=this.widthMenu;
-        this.gallary.height=500;            
-        this.gallary.otstup=2;       
+        this.gallary.otstup=7; 
+        this.gallary.height=(this.gallary.heightPic+this.gallary.otstup)*3+this.gallary.otstup*2;            
+              
         this.gallary.panel.visible=false;
         
 
@@ -124,7 +126,8 @@ export class AM2Assign extends AMBaza {
                 s=_s;
             }  
             this.dContXZ.x=_w/2/_s-this.widthMenu/2; 
-            this.am2aPlan.sizeWindow(_w,_h,_s); 
+
+           // this.am2aPlan.sizeWindow(_w,_h,_s); 
 
 
 
@@ -181,6 +184,7 @@ export class AM2Assign extends AMBaza {
 function DGT1(dCont, _x, _y, _fun,par) {
     DGallery.call(this, dCont, _x, _y, _fun);              
     this.type="DGT1";
+    this.bRadius=par.bRadius
     this.createZamen=function(){            
         var r=new BXZ1(this.content, 0, 0, this.downBtn, this);            
         return r;
@@ -206,11 +210,55 @@ function BXZ1(dCont, _x, _y, _fun, par) {
     var wh=24
     var ot=4
 
-    this.imege=new DImage(this,this.par.widthPic-wh-ot,this.par.heightPic-wh-ot,"resources/image/eyeadd.png")
-    this.imege.width=this.imege.height=wh;
+    this.imege2=new DImage(this,this.par.widthPic-wh-ot,this.par.heightPic-wh-ot,"resources/image/dd0.png")
+    this.imege2.width=this.imege2.height=wh;
 
-    this.imege1=new DImage(this,this.par.widthPic-wh-ot,this.par.heightPic-wh-ot,"resources/image/eyedelete.png")
+    this.imege1=new DImage(this,this.par.widthPic-wh-ot,this.par.heightPic-wh-ot,"resources/image/dd1.png")
     this.imege1.width=this.imege1.height=wh;
+
+    this.panel.borderRadius =this.par.bRadius;
+   // this.panel.boolLine=false
+    this.panel.glowSah=1;
+
+
+
+    var s=this.par.bRadius//ss
+    this.image.image.style.borderRadius=""+s+"px "+s+"px 0 0";
+    var sss="rect(0px "+this.par.widthMenu+"px "+(this.par.heightPic-32)+"px 0px)";
+    this.image.div2.style.clip = sss;
+    
+
+    var bb=true
+    var ss
+    this.draw = function () {
+        this.image.visible=false;
+        this.label.x=100
+        this.label.y=10
+        
+ 
+        let hh=this._height-30
+        ss = (this._width - this._otstup * 4) / this.image.picWidth;
+        //if (ss > (hh - this._otstup * 2) / this.image.picHeight)ss = (hh - this._otstup * 2) / this.image.picHeight;
+        this.image.x = 0;
+        this.image.width=this.image.picWidth*ss;
+        this.image.height=this.image.picHeight*ss;
+
+        trace(ss, this.image.width);
+
+        this.image.x = (this._width - this.image.picWidth * ss) / 2;
+        this.image.y = this._otstup//(this._height - this.image.picHeight * ss) / 2-10;
+
+
+
+        this.label.x = 2//(this._width - this.label.curW) / 2;
+        this.label.y = this._height - 20;
+
+        this.label.width=this.panel.width
+
+        
+        this.image.visible= true 
+        if (this.postDraw) this.postDraw();
+    };   
 
 
 
@@ -219,9 +267,9 @@ function BXZ1(dCont, _x, _y, _fun, par) {
         this.label.text= _obj.text;
         this.label.visible=true;
         if(this.image.link!=_obj.icon)this.image.link = _obj.icon;
-
+        this.image.visible= true 
         
-        this.imege.visible=  _obj.active 
+        this.imege2.visible=  _obj.active 
         this.imege1.visible=  !_obj.active  
 
         self.funLoad();

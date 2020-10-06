@@ -11,7 +11,7 @@ export class AM2APlan extends AMBaza {
   		var self=this;
         this.fun=fun;
         this._index=-1;
-
+        this.otstup=7
         this._active=false;
         this.widthMenu=par.widthMenu 
 
@@ -19,11 +19,24 @@ export class AM2APlan extends AMBaza {
         this.arrayCh=[]; 
 
         this.dCont = new DCont(par.dContXZ)
-        this.panel=new DPanel(this.dCont,0,0)
-        this.panel.color="#dddddd";
+
+        setTimeout(function() {
+            self.dCont.x=self.widthMenu/2+self.otstup*2//+Math.random()*111
+        }, 10);
 
 
-        
+
+
+        this.panel=new DPanel(this.dCont,-this.otstup,-this.otstup)
+        this.panel.boolLine=false
+        this.panel.borderRadius =this.bRadius;
+        this.panel.glowSah=3;
+
+
+        this.dCont1 = new DCont(par.dContXZ)
+       
+        new DPanel(this.dCont1,0,0)
+
 
 
 
@@ -32,13 +45,15 @@ export class AM2APlan extends AMBaza {
         })
 
 
-        this.image=new DImage(this.panel,0,0,null,function(){
+        this.image=new DImage(this.dCont,0,0,null,function(){
             this.width=this.picWidth
             this.height=this.picHeight
-            self.panel.width=this.picWidth
-            self.panel.height=this.picHeight
+            self.panel.width=this.picWidth+self.otstup*2
+            self.panel.height=this.picHeight+self.otstup*2
             self.dragIndex()
         });
+        this.image.div.style.pointerEvents="none";
+        //this.dCont.div.style.pointerEvents="none";   
 
         this.dCBut = new DCont(this.dCont);
 
@@ -118,7 +133,7 @@ export class AM2APlan extends AMBaza {
         var dCD,sp,dCDObject,as
         var pp={x:0,y:0,s:1}
         function mousedown(e){ 
-            
+            trace("#####",e)
             if(self.array[self._index]&&self.array[self._index].visible==true){
                 dCD= self.array[self._index].dCont;
                 dCDObject=self.array[self._index].object;
@@ -157,7 +172,7 @@ export class AM2APlan extends AMBaza {
 
         }
 
-        this.panel.div.addEventListener("mousedown", mousedown)
+        this.panel.dCont.div.addEventListener("mousedown", mousedown)
         //--------------------------------------
 
 

@@ -42,7 +42,10 @@ export class AMDebag  {
             return this.par.par.par.localStorage.object.model;    
         }
 
-        this.save=function(o){            
+        this.save=function(o){ 
+            
+            if(this.window==undefined)return 
+
             this.textArea.text=JSON.stringify(o,null,null,2)           
             this.par.par.par.localStorage.object.model=o;
             this.par.par.par.localStorage.save();
