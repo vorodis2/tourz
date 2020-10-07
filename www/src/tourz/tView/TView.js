@@ -48,8 +48,9 @@ export class TView  {
         }
 
         this.visi3D.zume=2500//this.par.objectBase.settings.zume
-
-
+        this.visi3D.position3d.minMaxX.x=Math.PI/2
+        this.visi3D.position3d.minMaxX.y=Math.PI/2
+        this.visi3D.rotationX=Math.PI/2
 
         this.visi3D.fun_rotationZ = function () {             
             self.fun("fun_rotationZ",self.visi3D._rotationZ)            

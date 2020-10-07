@@ -18,11 +18,15 @@ export class AMUp  {
         this.widthBlok=this.sizeBase*1.33//Ширина блока;
 
         this.pBig=new DPanel(par.dCont)
-        this.pBig.alpha=0
+        //this.pBig.alpha=0
+        this.pBig.color="#fafafa"
 
         this.dCont=new DCont(par.dCont);// Блоки, контент
         this.dCont1=new DCont(this.dCont);// Блоки, контент
         this.tween = new TWEEN.Tween(this.dCont1);
+
+
+
         // Массив блоков      
         var arr=[
             {src:"resources/image/y0.png",src1:"resources/image/y0_.png",text:"Choose Floorplan"},
@@ -128,7 +132,7 @@ class AMUButton  {
         }/*,obj.src*/);/*Добавление функции*/
 
 
-        trace(">>@@>>")
+      
         this.button.loadImeg(obj.src)
 
 
@@ -149,6 +153,9 @@ class AMUButton  {
         this.button.color = "#222222"; //Цвет поля
         this.button.colorText = dcmParam.colorText1; 
         this.button.boolLine = false;
+        this.button.label.bold=false
+        this.button.label.fontSize=15
+
 
         
 
@@ -158,16 +165,8 @@ class AMUButton  {
         this.animat=function(){
             this.panel.alpha=1;
             this.tween.stop();       
-            this.tween.to({alpha:0},this.time).start();
-           
-           
+            this.tween.to({alpha:0},this.time).start();       
         }
-
-        //this.button.border= "1px solid white";
-        //this.button.color1 = "#222222"; //Цвет блока
-       // this.button.panel.color1 = color; //Цвет блока
-       // this.button.panel1.color1 = color; //Цвет блока
-
     }
 
     set active(value) {
@@ -182,12 +181,13 @@ class AMUButton  {
                 this.button.loadImeg(this.obj.src1); //Картинка
                 //this.button.color = "#222222"; //Цвет шрифта
                 this.button.colorText = "#ffffff";
+                this.button.label.bold=true
                 this.button.boolFond=true 
             }else {
                 this.button.loadImeg(this.obj.src); //Картинка
                 //this.button.color = "#ffffff"; //Цвет поля
                 this.button.colorText = dcmParam.colorText1;  
-
+                this.button.label.bold=false
                 this.button.boolFond=false    
                 
             } 

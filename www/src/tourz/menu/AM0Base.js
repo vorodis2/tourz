@@ -58,14 +58,15 @@ export class AM0Base extends AMBaza {
 
             })
             this.input.height=26;
-
+            this.input.width=160
 
             let l=new DLabel(this.dContXZ,this.input.x+this.input.width+this.indent+20,6,"Grundrissname:")
 
-            this.input1 = new DInput(this.dContXZ,l.x+120,0," ",function(){
+            this.input1 = new DInput(this.dContXZ,l.x+130,0," ",function(){
 
             });
             this.input1.height=26;
+            this.input1.width=160
             this.button=new DButton(this.dContXZ,this.input1.x+this.input1.width+this.indent+25,0,"Suchen",function(){         
                 self.objBase.array.push({id:self.input.text*1,grundrissname:self.input1.text,link:{src:"resources/image/startImage.png"},array:[]})
                 self.redragProdukts();
@@ -74,12 +75,12 @@ export class AM0Base extends AMBaza {
             this.button.height=26;
             this.button.color="#222222"
             
-            this.button.width=160
-            trace(">>>>>>>>>>>>>>>>>@@@>",this.minBR)
+            this.button.width=160;
+            
             this.input.borderRadius=this.input1.borderRadius=this.button.borderRadius=this.minBR
 
             let siZet=10
-            let yy=50
+            let yy=45
             
             let xs1=191;
             l=new DLabel(this.dContXZ,xs+xs1*0,yy,"ID");
@@ -221,6 +222,21 @@ function BoxXZ(dCont, _x, _y, _fun, par) {
 
     });
     this.chek.label.x=40;
+    this.chek.label.color="#000000"
+    this.label.color="#000000"
+
+    this.chek.panel.dCont.div.style.border= '2px solid #222222';
+    this.chek.remove(this.chek.panel1)
+    this.chek.panel1=new DImage(this.chek,4,8,"resources/image/galka.png",function(){
+
+    })
+    this.chek.panel1.width=23*0.7
+    this.chek.panel1.height=18*0.7
+    this.chek.panel1.alpha=0.2
+    this.chek.panel1.div.style.cursor="pointer";
+
+
+
 
 
 
@@ -232,7 +248,11 @@ function BoxXZ(dCont, _x, _y, _fun, par) {
     this.button.borderRadius=this.par.minBR
     
 
-    this.l=new DLabel(this.content, 0,8,"Preview")   
+    this.l=new DLabel(this.content, 0,8,"Preview") 
+    this.l.color="#000000";
+    this.l.dCT.div.style.contenteditable="true" 
+
+
 
     this.button1=new DButton(this.content, 0,2,"",function(){
         self.par.fun("preview",self.object)
@@ -241,77 +261,33 @@ function BoxXZ(dCont, _x, _y, _fun, par) {
     
     //this.button1.label.color="#000000"
     
-    this.label.color=dcmParam.colorText1
-
-    this.button1.x=this.par.wPlus+this.par.widthMenu-this.button1.width+30
+    this.label.color=dcmParam.colorText1;
+    this.button1.x=this.par.wPlus+this.par.widthMenu-this.button1.width+30;
     this.button.height=this.button1.height=par.heightPic-8;
-
     this.l.x= this.button1.x+20
     
     //this.button1.panel.visible=false
     this.button1.alpha = 0.01;
 
+    let pp=new DPanel(this.content, this.l.x,this.l.y+18) 
+    pp.width=65;
+    pp.height=3
+    pp.color="#000000";
+    pp.boolLine=false
+
     this.startLoad = function (_obj) {  
-        trace(_obj)
+        
         this.object = _obj;
         this.label.text= _obj.grundrissname
         this.label.visible=true
         this.chek.text=_obj.id+"";
-
-
-   
-
-       /* this.label.visible=true
-        if(this.object!=undefined) {
-            self.funLoad();
-            return   
-        }        
-
-        this.object = _obj;
-
-        if (_obj.title) {
-            this.label.text = _obj.title;
-            this.label.value = _obj.title;
-            this.label.visible = true;
-        }
-        if (_obj.src1) {
-            //this.image.visible = true;
-            if (this.image.link == _obj.src1) {
-                if (self.funLoad) self.funLoad();
-            } else {
-                this.image.width = 100;
-                this.image.height = 100;
-                this.image.link = _obj.src1;
-            }
-        }else{
-            if (self.funLoad) self.funLoad();
-        }*/
         this.draw();
-
         self.funLoad();
     };
     var ss
     this.draw = function () {
         this.image.visible=false;
-       /* this.label.x=100
-        this.label.y=10*/
- 
-        /*let hh=this._height-30
-        ss = (this._width - this._otstup * 2) / this.image.picWidth;
-        if (ss > (hh - this._otstup * 2) / this.image.picHeight)ss = (hh - this._otstup * 2) / this.image.picHeight;
-        this.image.x = 0;
-        this.image.width=this.image.picWidth*ss;
-        this.image.height=this.image.picHeight*ss;
 
-        this.image.x = (this._width - this.image.picWidth * ss) / 2;
-        this.image.y = (this._height - this.image.picHeight * ss) / 2-10;
-
-        this.label.x = 2//(this._width - this.label.curW) / 2;
-        this.label.y = this._height - 20;
-
-        this.label.width=this.panel.width
-
-        if (this.postDraw) this.postDraw();*/
     };
 
 

@@ -40,8 +40,10 @@ export class AM2Assign extends AMBaza {
             if(s=="index")self.index=p;
             if(s=="fun_rotationZ")self.am2aPlan.setRotation(p)
         });
-        this.am2aView.width=this.widthMenu/2-5;
-        this.am2aView.height=this.widthMenu/2-5;
+        //this.am2aView.width=this.widthMenu/2-5;
+        //this.am2aView.height=this.widthMenu/2-5;
+
+
         this.am2aView._active=true
         this.am2aView.active=false
 
@@ -206,9 +208,9 @@ function BXZ1(dCont, _x, _y, _fun, par) {
     
     this.label.x=this.par.wPlus+148
     this.label.y=10
-    //this.panel.boolLine=false
-    var wh=24
-    var ot=4
+    this.panel.boolLine=false
+    var wh=24;
+    var ot=4;
 
     this.imege2=new DImage(this,this.par.widthPic-wh-ot,this.par.heightPic-wh-ot,"resources/image/dd0.png")
     this.imege2.width=this.imege2.height=wh;
@@ -243,7 +245,7 @@ function BXZ1(dCont, _x, _y, _fun, par) {
         this.image.width=this.image.picWidth*ss;
         this.image.height=this.image.picHeight*ss;
 
-        trace(ss, this.image.width);
+        
 
         this.image.x = (this._width - this.image.picWidth * ss) / 2;
         this.image.y = this._otstup//(this._height - this.image.picHeight * ss) / 2-10;
@@ -256,7 +258,7 @@ function BXZ1(dCont, _x, _y, _fun, par) {
         this.label.width=this.panel.width
 
         
-        this.image.visible= true 
+        this.image.visible = true; 
         if (this.postDraw) this.postDraw();
     };   
 
@@ -275,6 +277,7 @@ function BXZ1(dCont, _x, _y, _fun, par) {
         self.funLoad();
         this.draw();
         self.funLoad();
+
     };
 
     if(dcmParam.mobile==false){

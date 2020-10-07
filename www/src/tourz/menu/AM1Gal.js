@@ -27,22 +27,25 @@ export class AM1Gal extends AMBaza {
         this.dContXZ = new DCont(this.dCont) 
         this.dContXZ.y=this.indent+this.sizeBase+45;
 
-        this.button=new DButton(this.dContXZ, 0,0,"Datei auswählen",function(){
+        this.button=new DButton(this.dContXZ, this.otstup1,0,"Datei auswählen",function(){
             
         });
         this.button.width=160;        
         this.button.color="#222222";
-        this.button.borderRadius=2;
+        this.button.borderRadius=this.minBR;
+
 
 
         this.gallary = new DGT(this.dContXZ,0,60,this.down,this)
         this.gallary.widthMenu=this.widthMenu
+        this.gallary.otstup=this.otstup1;
         this.gallary.kolII=4;
-        this.gallary.widthPic=160//this.widthMenu/this.gallary.kolII-4;
-        this.gallary.heightPic=120;
-        this.gallary.width=this.widthMenu;
+        this.gallary.widthPic=160
+        this.gallary.heightPic=130;
+        this.gallary.width=(this.gallary.widthPic+this.gallary.otstup)*this.gallary.kolII+this.gallary.otstup;
         this.gallary.height=500;            
-        this.gallary.otstup=2;  
+        
+
         this.gallary.panel.visible=false; 
         this.gallary.bRadius=this.par.bRadius
 
@@ -138,7 +141,8 @@ function DGT(dCont, _x, _y, _fun,par) {
     DGallery.call(this, dCont, _x, _y, _fun);              
     this.type="DGT";
     this.bRadius=4
-
+    this.color='#ffffff'
+    this.par=par
     this.createZamen=function(){            
         var r=new BXZ(this.content, 0, 0, this.downBtn, this);            
         return r;
@@ -180,64 +184,88 @@ function BXZ(dCont, _x, _y, _fun, par) {
     this.par=par;
 
     this.label.div.style.pointerEvents="none";
-    this.label.textAlign="center";
+    //this.label.textAlign="center";
     this.label.color="#000000";
     
     this.label.x=this.par.wPlus+148
     this.label.y=10
-    this.panel.boolLine=false
+    this.panel.boolLine=false;
+    this.label.bold = true;
+    this.label.fontSize=12;
+
+
 
     this.panel.borderRadius =this.par.bRadius;
-
+    this.panel.glowSah=1;
+    this.panel.glowColor=par.par.glowColor
+    var wh=32
     var ss=42; 
     var s=this.par.bRadius//ss
+
+   // var rh=new DCont(this);    
+    //rh.add(this.image)
+
+
     this.image.image.style.borderRadius=""+s+"px "+s+"px 0 0";
-    var sss="rect(0px "+this.par.widthMenu+"px "+(this.par.heightPic-24)+"px 0px)";
+    var sss="rect(0px "+this.par.widthMenu+"px "+(this.par.heightPic-wh)+"px 0px)";
     this.image.div2.style.clip = sss;
+
+
+
+    this.input = new DInput(this,4,0," ",function(){
+        self.setTT(this.text);
+        self.par.par.fun("saveTime");
+    });
+    this.input.height=22;
+    this.input.width=85;
+    this.input.textAlign="left";
+    this.input.borderRadius =this.par.bRadius;
+    this.input.fontSize=12;
+    this.input.visible=false
+
+
+
+    this.batton=new DButton(this,0,0,"",function(){
+
+    },"resources/image/dd2.png")
+    this.batton.width=this.batton.height=this.batton.borderRadius=wh*0.8
+    this.batton.boolFond=false;
+
+    this.batton1=new DButton(this,0,0,"",function(){
+        self.input.visible=!self.input.visible
+        this.alpha=self.input.visible==true ? 0.5 : 1
+    },"resources/image/dd3.png")
+    this.batton1.width=this.batton1.height=this.batton1.borderRadius=wh*0.8
+    this.batton1.boolFond=false;
 
    //div2.
 
+    this.setTT=function(s){
+        let kk=12
+        if(s.length<=kk){
+            this.label.text=s
+            return
+        }
+        let ss=""
+        for (var i = 0; i < 12; i++) {
+            if(s[i])ss+=s[i]
+        }
+
+        this.label.text= ss+".."  
+    }
+
     this.startLoad = function (_obj) {  
-       
+        this.input.visible=false;
+        this.batton1.alpha=1
         this.object = _obj;
-        this.label.text= _obj.text;
+        this.input.text=_obj.text
+        this.setTT(_obj.text)
         this.label.visible=true;
-
-
+        this.label.bould = true;
         this.image.link = _obj.icon;
 
         self.funLoad();
-
-       
-
-
-   
-
-       /* this.label.visible=true
-        if(this.object!=undefined) {
-            self.funLoad();
-            return   
-        }        
-
-        this.object = _obj;
-
-        if (_obj.title) {
-            this.label.text = _obj.title;
-            this.label.value = _obj.title;
-            this.label.visible = true;
-        }
-        if (_obj.src1) {
-            //this.image.visible = true;
-            if (this.image.link == _obj.src1) {
-                if (self.funLoad) self.funLoad();
-            } else {
-                this.image.width = 100;
-                this.image.height = 100;
-                this.image.link = _obj.src1;
-            }
-        }else{
-            if (self.funLoad) self.funLoad();
-        }*/
+      
         this.draw();
 
         self.funLoad();
@@ -245,26 +273,36 @@ function BXZ(dCont, _x, _y, _fun, par) {
 
     var ss
     this.draw = function () {
-        this.image.visible=false;
-        this.label.x=100
-        this.label.y=10
+        this.image.visible=true;
+       /* this.label.x=100
+        this.label.y=10*/
  
-        let hh=this._height-30
-        ss = (this._width - this._otstup * 4) / this.image.picWidth;
+        let hh=this._height-wh
+        ss = (this._width ) / this.image.picWidth;
         //if (ss > (hh - this._otstup * 2) / this.image.picHeight)ss = (hh - this._otstup * 2) / this.image.picHeight;
-        this.image.x = 0;
+       
         this.image.width=this.image.picWidth*ss;
         this.image.height=this.image.picHeight*ss;
 
-        this.image.x = (this._width - this.image.picWidth * ss) / 2;
-        this.image.y = this._otstup//(this._height - this.image.picHeight * ss) / 2-10;
+        this.image.x = 0//(this._width - this.image.picWidth * ss) / 2;
+        this.image.y = 0//(this._height - this.image.picHeight * ss) / 2-10;
 
-        this.label.x = 2//(this._width - this.label.curW) / 2;
-        this.label.y = this._height - 20;
+        this.label.x = 10//(this._width - this.label.curW) / 2;
+        this.label.y = this._height - 24;
 
-        this.label.width=this.panel.width
+        this.label.width=this.panel.width*2;
 
-        
+        this.batton.x= this._width-this.batton.width-wh*0.1  
+        this.batton.y= this._height-this.batton._height-wh*0.1 
+
+        this.batton1.x= this._width-this.batton.width*2-wh*0.3  
+        this.batton1.y= this._height-this.batton._height-wh*0.1  
+
+        this.input.y= this.batton1.y;        
+
+        var s=Math.round(this.par.bRadius/ss)
+        trace(s,"LLLLLLLLLLLL",ss,this._width,this.image.picWidth)
+        //this.image.image.style.borderRadius=""+s+"px "+s+"px 0 0";    
 
         if (this.postDraw) this.postDraw();
     };
@@ -298,10 +336,10 @@ Object.defineProperties(BXZ.prototype, {
 
             if(this._activ){
                 //this.image.link=this.object.src;
-                this.label.color="#93c32f"
+                //this.label.color="#93c32f"
             }else{
                 //this.image.link=this.object.src1;
-                this.label.color="#000000"
+                //this.label.color="#000000"
             }
 
             if(this._activ==false)this.panel.color1=this._color1;

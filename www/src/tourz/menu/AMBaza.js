@@ -33,6 +33,7 @@ export class AMBaza  {
         this.minBR=par.minBR;
         this.colorAct=par.colorAct;
         this.time=par.time;
+        this.glowColor=par.glowColor
 
         this.init=function(){
             /*if(this.window!=undefined)return

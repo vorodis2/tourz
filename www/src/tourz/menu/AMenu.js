@@ -41,9 +41,11 @@ export class AMenu  {
         this.minBR=4;
         this.colorAct="#c7edfc"
         this.time=500
+        this.glowColor="#dddddd"
 
-        dcmParam.color="#dddddd"
-        dcmParam.colorText1="#222222"
+        dcmParam.color="#dddddd";
+        dcmParam.colorText1="#222222";
+        dcmParam.fontFamily="Montserrat";
 
        /* this._id=-1;
         this.debug=par.debug
@@ -63,8 +65,8 @@ export class AMenu  {
             {id:63773,grundrissname:"Eichest. 1OG",link:{src:"resources/image/startImage.png"},array:[
                 {text:"name 1",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
                 {text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t0.png"},
-                {text:"name 3",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
-                {text:"name 4",icon:"resources/image/360.png",pic:"resources/image/t0.png"},
+                {text:"name 3",icon:"resources/image/36110.png",pic:"resources/image/t0.jpg"},
+                {text:"name 4",icon:"resources/image/pic.jpg",pic:"resources/image/t0.png"},
                 {text:"name 5",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
                 {text:"name 6",icon:"resources/image/360.png",pic:"resources/image/t0.png"}
             ]},
@@ -88,9 +90,7 @@ export class AMenu  {
         
         this.ddragPic=new DDragPic(this.dCont);
         this.ddragPic.pointZdvig.x=0
-        var dd=new DPanel(this.dCont)
-        dd.width=5000
-        dd.height=5000
+        
         this.dCont1=new DCont(this.dCont);
 
 
@@ -136,7 +136,8 @@ export class AMenu  {
         }
 
 
-        this.save1=function(){             
+        this.save1=function(){  
+            trace("@@@@@@@@",this.objBase);           
             this.aMDebag.save(this.objBase);
         } 
         this.sah=0;
@@ -167,7 +168,7 @@ export class AMenu  {
                     this.array[i].sizeWindow(w,h,s)             
                 }
             }  
-            dd.x=w/2/s;       
+                  
         }
 
         this.xyp={x:0,y:0,s:1}

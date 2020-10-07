@@ -14,20 +14,18 @@ export class AM2AView extends AMBaza {
   		var self=this;
         this.fun=fun;
         this.wh=32
-
+        this.par=par
         this._width =100;
         this._height =100; 
 
         this.dCont = new DCont(par.dContXZ)
-        //this.dCont.x=-this._width
+      //this.dCont.y=this._width
 
-        this.panel=new DPanel(this.dCont,0,this.wh)
+       /* this.panel=new DPanel(this.dCont,0,this.wh)
         this.panel.color="#cccccc";
-        this.panel.height=this._height-this.wh;
+        this.panel.height=this._height-this.wh;*/
 
-        this.label=new DLabel(this.dCont,0,0)
-        this.label.width=this._width;
-        this.label.textAlign='center';
+        
 
 
         this.tView = new TView(function(s,p){
@@ -35,23 +33,44 @@ export class AM2AView extends AMBaza {
             if(s=="fun_rotationZ")self.fun(s,p);
         });
         this.dCV = new DCont(this.dCont)
-        this.dCV.y=this.wh;
+        this.dCV.y=20
         this.dCV.div.appendChild(this.tView.div);
         this.tView.active=false;
+
+        this.label=new DLabel(this.dCont,0,0)
+        this.label.width=this._width;
+        this.label.textAlign='center';
+
+       
+
+        this.image=new DImage(this.dCV,-5,-5,"resources/image/w3.png",function(){
+            this.width=this.picWidth;
+            this.height=this.picHeight;
+            self.tView.sizeWindow(this.width-10, this.height-10);
+
+            self.dCont.x=-(this.width-self.par.widthMenu/2)
+            self._height=this.height;
+            self._width=this.width;
+
+            self.button.x=0;
+            self.button.y=self._height+20;
+            self.label.width=self._width;
+        })
+        this.image.div.style.pointerEvents="none";
 
 
         this.button = new DButton(this.dCont,0,0,"Zurück",function(){
             self.fun("index",self.par.index-1);
-        })
+        });
 
         this.resaz = function(argument) {            
-            this.panel.width=this._width;
+          /*  this.panel.width=this._width;
             this.panel.height=this._height-this.wh; 
             this.label.width=this._width;
 
             this.button.x=0;
             this.button.y=this._height+20;
-            this.tView.sizeWindow(this._width,this._height-this.wh);
+            this.tView.sizeWindow(this._width,this._height-this.wh);*/
 
         }
 
@@ -93,7 +112,7 @@ export class AM2AView extends AMBaza {
             this.resaz();                                        
         }             
     }
-    get height() { return this._height; }      
+    get height() { return this._height; }    
 }
 
 
