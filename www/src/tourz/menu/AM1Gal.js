@@ -69,8 +69,7 @@ export class AM1Gal extends AMBaza {
 
         /*__________________________________________*/ 
             
-
-
+/*
         this.i=new DInput(this.dContXZ, 200,0,"resources/image/t0.jpg",function(){
             
         });
@@ -96,7 +95,7 @@ export class AM1Gal extends AMBaza {
             
             self.fun("saveTime")
         });
-        this.b.width=this.b.height
+        this.b.width=this.b.height*/
         
 
         ///////////////////////
