@@ -27,14 +27,29 @@ export class AM1Gal extends AMBaza {
         this.dContXZ = new DCont(this.dCont) 
         this.dContXZ.y=this.indent+this.sizeBase+45;
 
-        this.button=new DButton(this.dContXZ, this.otstup1,0,"Datei auswählen",function(){
-            
+        this.button=new DButton(this.dContXZ, this.otstup1,0,"Datei auswählen",function(s){
+            self.par.aCreatPic.setFile(this.files[0],s,function(b,b1){
+                self.objBase.array.push({
+                    text:"name",
+                    icon:b,
+                    pic:b1
+                });
+                self.gallary.start(self.objBase.array); 
+                self.par.aM2Assign.openArrId()
+            });
         });
         this.button.width=160;        
         this.button.color="#222222";
         this.button.borderRadius=this.minBR;
+        this.button.startFile()
 
-
+        this.down=function(s,p){
+            if(s=="kill"){
+                self.objBase.array.splice(p,1);
+                self.setObj(self.objBase);              
+                self.fun("saveTime");
+            }
+        }
 
         this.gallary = new DGT(this.dContXZ,0,60,this.down,this)
         this.gallary.widthMenu=this.widthMenu
@@ -43,12 +58,14 @@ export class AM1Gal extends AMBaza {
         this.gallary.widthPic=160
         this.gallary.heightPic=130;
         this.gallary.width=(this.gallary.widthPic+this.gallary.otstup)*this.gallary.kolII+this.gallary.otstup;
-        this.gallary.height=500;            
+        this.gallary.height=(this.gallary.heightPic+this.gallary.otstup)*3+this.gallary.otstup;            
         
 
         this.gallary.panel.visible=false; 
         this.gallary.bRadius=this.par.bRadius
 
+        this.gallary.boolPositOtctup=false
+        this.gallary.zScrol=-12
 
         /*__________________________________________*/ 
             
@@ -70,12 +87,12 @@ export class AM1Gal extends AMBaza {
         
 
         this.b=new DButton(this.dContXZ, 700,0,"<",function(){
-                self.oB.array.push({
+                self.objBase.array.push({
                 text:self.i2.text,
                 icon:self.i1.text,
                 pic:self.i.text
             });
-            self.oB=self.oB
+            self.gallary.start(self.objBase.array);  
             
             self.fun("saveTime")
         });
@@ -86,7 +103,9 @@ export class AM1Gal extends AMBaza {
         
 
         this.setObj=function(o){
-            this.objBase=o;           
+            this.objBase=o; 
+            this.gallary.start(this.objBase.array);             
+            
         }
 
 
@@ -103,33 +122,6 @@ export class AM1Gal extends AMBaza {
         }
   	}
 
-    set indexId(value) {
-        if (this._indexId != value) {
-            this._indexId = value;  
-            this.oB=undefined;
-
-            for (var i = 0; i < this.objBase.array.length; i++) {                
-                if(this.objBase.array[i].id==this._indexId){                   
-                    this.oB=this.objBase.array[i];
-                    return
-                }
-            }                              
-        }             
-    }
-    get indexId() { return this._indexId; }  
-
-    set oB(value) {
-        if(this._oB==undefined&&value==undefined)return       
-        this._oB = value; 
-        if( this._oB !=undefined){
-            this.gallary.start(this._oB.array);  
-        }else{
-            this.gallary.clear();
-        }
-                                      
-                    
-    }
-    get oB() { return this._oB; }
 }
 
 
@@ -226,7 +218,8 @@ function BXZ(dCont, _x, _y, _fun, par) {
 
 
     this.batton=new DButton(this,0,0,"",function(){
-
+        self.par.fun("kill",self.idArr)
+        self.par.par.fun("saveTime");
     },"resources/image/dd2.png")
     this.batton.width=this.batton.height=this.batton.borderRadius=wh*0.8
     this.batton.boolFond=false;
@@ -234,6 +227,7 @@ function BXZ(dCont, _x, _y, _fun, par) {
     this.batton1=new DButton(this,0,0,"",function(){
         self.input.visible=!self.input.visible
         this.alpha=self.input.visible==true ? 0.5 : 1
+        self.par.par.fun("saveTime");
     },"resources/image/dd3.png")
     this.batton1.width=this.batton1.height=this.batton1.borderRadius=wh*0.8
     this.batton1.boolFond=false;
@@ -301,7 +295,7 @@ function BXZ(dCont, _x, _y, _fun, par) {
         this.input.y= this.batton1.y;        
 
         var s=Math.round(this.par.bRadius/ss)
-        trace(s,"LLLLLLLLLLLL",ss,this._width,this.image.picWidth)
+  
         //this.image.image.style.borderRadius=""+s+"px "+s+"px 0 0";    
 
         if (this.postDraw) this.postDraw();

@@ -18,25 +18,32 @@ export class AM0Base extends AMBaza {
         this.widthMenu=par.widthMenu
         this.objBase=undefined
         var wPlus=2200;
+        this.kolSig=12; 
+
+        this.dpB=undefined
 
 
-        
-
-
-        this.down= function(s,p){                       
+        this.down= function(s,p){                                     
             if(s=="completed")self.fun(s,p.id);//self.indexId=p.id;
             if(s=="preview")self.fun(s,p);
+            if(s==undefined){
+                self.fun("completed",this.array[this.index].object.id);                
+            }
         } 
 
 
-    
+
         
 
         this.redragProdukts= function(){
-            this.gallary.start(this.objBase.array);
-            let yy=this.objBase.array.length*(this.gallary.heightPic+2)+2
-            if(yy>300)yy=300
+            this.gallary.start(this.array);
+            let kk=this.array.length
+            if(kk>this.kolSig)kk=this.kolSig
+            let yy=kk*(this.gallary.heightPic+this.gallary.otstup)+this.gallary.otstup*2           
             this.gallary.height=yy
+            if(this.dpB)this.dpB.y=this.gallary.y+this.gallary.height+10
+
+            if(kk!=0)this.indexId=this.array[0].id
             this.sizeWindow();                  
         }
 
@@ -45,32 +52,50 @@ export class AM0Base extends AMBaza {
         this.init= function(){
             if(this.dContXZ!=undefined)return;
 
+            
+
 
 
             this.dContXZ = new DCont(this.dCont) 
             this.dContXZ.y=this.indent+this.sizeBase+45;
 
+            
+           
+            
+
 
             let xs=40;
 
             new DLabel(this.dContXZ,xs,6,"id:")
-            this.input=new DInput(this.dContXZ,xs+30,0," ",function(){
+            this.input=new DInput(this.dContXZ,xs+30,0,"",function(){
 
             })
             this.input.height=26;
             this.input.width=160
+            this.input.timeFun=1;
 
             let l=new DLabel(this.dContXZ,this.input.x+this.input.width+this.indent+20,6,"Grundrissname:")
 
-            this.input1 = new DInput(this.dContXZ,l.x+130,0," ",function(){
+            this.input1 = new DInput(this.dContXZ,l.x+130,0,"",function(){
 
             });
             this.input1.height=26;
             this.input1.width=160
+            this.input1.timeFun=1;
             this.button=new DButton(this.dContXZ,this.input1.x+this.input1.width+this.indent+25,0,"Suchen",function(){         
-                self.objBase.array.push({id:self.input.text*1,grundrissname:self.input1.text,link:{src:"resources/image/startImage.png"},array:[]})
+                let ap=[]
+                if(self.input.value && self.input.value.length>=1 &&self.input.value!="null"){
+                    ap.push("id",self.input.value)
+                }
+                if(self.input1.value && self.input1.value.length>=1 &&self.input1.value!="null"){
+                    ap.push("grundrissname",self.input1.value)
+                }
+                self.array=self.par.svasBd.getPar(ap) 
+                
+                self.redragProdukts()
+                /*self.objBase.array.push({id:self.input.text*1,grundrissname:self.input1.text,link:{src:"resources/image/startImage.png"},array:[]})
                 self.redragProdukts();
-                self.fun("saveTime")
+                self.fun("saveTime")*/
             });
             this.button.height=26;
             this.button.color="#222222"
@@ -105,17 +130,48 @@ export class AM0Base extends AMBaza {
             this.gallary.wPlus=wPlus; 
             //this.gallary.panel.visible=false;  
             this.gallary.minBR=this.minBR
+
+
+            let kk=Math.ceil(this.par.svasBd.getKol()/this.kolSig);           
+            if(kk>=2){
+                this.dpB = new DPanel(this.dCont,0,0);
+                this.dpB.borderRadius=this.minBR;
+                this.dpB.height=360
+                var sb=[]
+                for (var i = 0; i < kk; i++) {
+                    sb[i]=this.button=new DButton(this.dpB.content,34*i,2,""+i,function(){         
+                        self.open(this.text*self.kolSig)
+                        for (var j = 0; j< sb.length; j++) {
+                            sb[j].alpha=1
+                        }
+                        this.alpha=0.75
+                    });              
+                    this.button.color="#222222"
+                    this.button.borderRadius=this.minBR
+                    this.button.width=this.button.height=32;
+                } 
+                this.dpB.height=36
+                this.dpB.width=34*kk+2
+
+            }
+
+            this.open(0);
             
+        }
+
+
+         
+        this.array=[]
+        this.open=function(sah){
+            this.array=this.par.svasBd.getArr(sah, this.kolSig)            
+            this.redragProdukts()
+
         }
 
 
         
 
-        this.setObj=function(o){
-            this.objBase=o;
-            this.init();
-            this.redragProdukts();
-        }
+        
 
 
 
@@ -127,8 +183,10 @@ export class AM0Base extends AMBaza {
                 h=_h;
                 s=_s;
             }  
-            this.gallary.x=-wPlus+(_w/s-this.widthMenu)/2;
-            this.dContXZ.x=(_w/s-this.widthMenu)/2;
+            this.gallary.x=-wPlus+(w/s-this.widthMenu)/2;
+            this.dContXZ.x=(w/s-this.widthMenu)/2;
+
+            if(this.dpB)this.dpB.x=(w/s-this.dpB.width)/2;
                     
         }
   	}
@@ -136,12 +194,12 @@ export class AM0Base extends AMBaza {
     set indexId(value) {
         if (this._indexId != value) {
             this._indexId = value;  
-    
-            for (var i = 0; i < this.gallary.array.length; i++) {
+          
+            for (var i = 0; i < this.array.length; i++) {
                 
-                if(this.gallary.array[i].object.id==this._indexId){
+                if(this.array[i].id==this._indexId){
                     this._index=-1;
-                    this.gallary._index=-1;
+                    this.par.setObj(this.array[i])
                     this.index=i;
                     return
                 }

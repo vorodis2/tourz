@@ -71,24 +71,29 @@ export class AM2Assign extends AMBaza {
         }
        
 
-        this.gallary = new DGT1(this.dContXZ,-7,0,this.down,this)
+        this.gallary = new DGT1(this.dContXZ,-24,-12,this.down,this)
         this.gallary.widthMenu=this.widthMenu;
         this.gallary.kolII=2;
         this.gallary.widthPic=160//this.widthMenu/this.gallary.kolII-4;
         this.gallary.heightPic=130;
         this.gallary.width=this.widthMenu;
         this.gallary.otstup=7; 
-        this.gallary.height=(this.gallary.heightPic+this.gallary.otstup)*3+this.gallary.otstup*2;            
+        this.gallary.height=(this.gallary.heightPic+this.gallary.otstup)*3+this.gallary.otstup;            
               
         this.gallary.panel.visible=false;
+
+        this.gallary.boolPositOtctup=false
+        this.gallary.zScrol=-7;
         
 
         ///////////////////////
         
 
         this.setObj=function(o){
-            this.objBase=o;  
-                  
+            this.objBase=o;           
+            this.openArrId(o.array)
+            this.am2aPlan.setPic(o.link.src)   
+            aaa= this.objBase.array     
         }
         var aaa
         this.openArrId=function(a){
@@ -146,7 +151,7 @@ export class AM2Assign extends AMBaza {
     get index() { return this._index; }  
 
 
-    set indexId(value) {
+  /*  set indexId(value) {
         if (this._indexId != value) {
             this._indexId = value;  
             this.oB=undefined;
@@ -175,7 +180,7 @@ export class AM2Assign extends AMBaza {
                                       
                     
     }
-    get oB() { return this._oB; }
+    get oB() { return this._oB; }*/
 }
 
 
@@ -184,7 +189,8 @@ export class AM2Assign extends AMBaza {
 
 
 function DGT1(dCont, _x, _y, _fun,par) {
-    DGallery.call(this, dCont, _x, _y, _fun);              
+    DGallery.call(this, dCont, _x, _y, _fun);    
+    this.par=par        
     this.type="DGT1";
     this.bRadius=par.bRadius
     this.createZamen=function(){            
@@ -203,12 +209,16 @@ function BXZ1(dCont, _x, _y, _fun, par) {
     this.par=par;
 
     this.label.div.style.pointerEvents="none";
-    this.label.textAlign="center";
+    //this.label.textAlign="center";
     this.label.color="#000000";
     
     this.label.x=this.par.wPlus+148
-    this.label.y=10
-    this.panel.boolLine=false
+    this.label.y=10;
+    this.panel.boolLine=false;
+    this.label.bold = true;
+    this.label.fontSize=12;
+    
+  
     var wh=24;
     var ot=4;
 
@@ -218,9 +228,11 @@ function BXZ1(dCont, _x, _y, _fun, par) {
     this.imege1=new DImage(this,this.par.widthPic-wh-ot,this.par.heightPic-wh-ot,"resources/image/dd1.png")
     this.imege1.width=this.imege1.height=wh;
 
+    
+
     this.panel.borderRadius =this.par.bRadius;
-   // this.panel.boolLine=false
     this.panel.glowSah=1;
+    this.panel.glowColor=par.par.glowColor;
 
 
 
@@ -239,21 +251,21 @@ function BXZ1(dCont, _x, _y, _fun, par) {
         
  
         let hh=this._height-30
-        ss = (this._width - this._otstup * 4) / this.image.picWidth;
+        ss = (this._width) / this.image.picWidth;
         //if (ss > (hh - this._otstup * 2) / this.image.picHeight)ss = (hh - this._otstup * 2) / this.image.picHeight;
-        this.image.x = 0;
+       
         this.image.width=this.image.picWidth*ss;
         this.image.height=this.image.picHeight*ss;
 
         
 
-        this.image.x = (this._width - this.image.picWidth * ss) / 2;
-        this.image.y = this._otstup//(this._height - this.image.picHeight * ss) / 2-10;
+        this.image.x = 0//(this._width - this.image.picWidth * ss) / 2;
+        this.image.y = 0//this._otstup//(this._height - this.image.picHeight * ss) / 2-10;
 
 
 
-        this.label.x = 2//(this._width - this.label.curW) / 2;
-        this.label.y = this._height - 20;
+        this.label.x = 10//(this._width - this.label.curW) / 2;
+        this.label.y = this._height - 24;
 
         this.label.width=this.panel.width
 

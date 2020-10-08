@@ -32,6 +32,7 @@ export class AM2AView extends AMBaza {
             //trace(">>>>>>>>>>>>",s,p);
             if(s=="fun_rotationZ")self.fun(s,p);
         });
+        this.tView.setDragLine(true)
         this.dCV = new DCont(this.dCont)
         this.dCV.y=20
         this.dCV.div.appendChild(this.tView.div);

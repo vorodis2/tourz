@@ -30,12 +30,13 @@ export class AM2APlan extends AMBaza {
         this.panel=new DPanel(this.dCont,-this.otstup,-this.otstup)
         this.panel.boolLine=false
         this.panel.borderRadius =this.bRadius;
-        this.panel.glowSah=3;
+        this.panel.glowSah=1;
+        this.panel.glowColor=this.glowColor;
 
 
         this.dCont1 = new DCont(par.dContXZ)
        
-        new DPanel(this.dCont1,0,0)
+        //new DPanel(this.dCont1,0,0)
 
 
 
@@ -43,6 +44,11 @@ export class AM2APlan extends AMBaza {
         this.button = new DButton(this.dCont,0,0,"Weiter",function(){
             self.fun("index",self.index+1)
         })
+        this.button.width=160;        
+        this.button.color="#222222";
+        this.button.borderRadius=this.minBR;
+
+
 
 
         this.image=new DImage(this.dCont,0,0,null,function(){
@@ -96,7 +102,7 @@ export class AM2APlan extends AMBaza {
 
         var xy={x:0,y:0,s:1}
         function mousemove(e){ 
-            trace(">>mousemove>>",e)
+        
             let xx
             let yy
             
@@ -133,7 +139,7 @@ export class AM2APlan extends AMBaza {
         var dCD,sp,dCDObject,as
         var pp={x:0,y:0,s:1}
         function mousedown(e){ 
-            trace("#####",e)
+        
             if(self.array[self._index]&&self.array[self._index].visible==true){
                 dCD= self.array[self._index].dCont;
                 dCDObject=self.array[self._index].object;
@@ -150,26 +156,7 @@ export class AM2APlan extends AMBaza {
                     document.addEventListener("touchend", mouseup);
 
                 }
-            }     
-            /*if(dcmParam.mobile==false){
-                if(sp==undefined){
-                    sp={
-                        x:e.clientX,                        
-                        value:self.panel.x,
-                        b:false
-                    };
-                }               
-                ss=(e.clientX-sp.x)/self.scaleDrag.s        
-            }else{
-                if(sp==undefined){
-                    sp={
-                        x:e.targetTouches[0].clientX,                       
-                        value:self.panel.x,
-                    };
-                }               
-                ss=(e.targetTouches[0].clientX-sp.x)/self.scaleDrag.s                           
-            }*/
-
+            }
         }
 
         this.panel.dCont.div.addEventListener("mousedown", mousedown)
@@ -197,6 +184,7 @@ export class AM2APlan extends AMBaza {
                 this.arrayCh[i].visible=false                  
             }
             this.array.length=0;
+            self.testB();
 
         }
 
@@ -211,6 +199,7 @@ export class AM2APlan extends AMBaza {
             }
 
             this.korIdArr()
+            self.testB();
         }
 
 
@@ -223,8 +212,14 @@ export class AM2APlan extends AMBaza {
             return this.arrayCh[this.arrayCh.length-1];
         }
 
+        this.testB = function(){
+            
+            this.button.visible=this.array.length==0 ? false : true
+        }
+
         this.addObj = function(obj,_p){
             if(this.remuveObj(obj)!=false){
+                self.testB()
                 self.fun("saveTime")
             }
 
@@ -236,6 +231,7 @@ export class AM2APlan extends AMBaza {
                 bx.setXY(_p.x,_p.y)
                 obj.active= true;
                 self.fun("saveTime")
+                self.testB()
             }
         }
         this.remuveObj = function(obj){            
@@ -246,6 +242,7 @@ export class AM2APlan extends AMBaza {
                         this.array[i].object.active = false;
                         let r=this.array.splice(i,1);
                         this.korIdArr()
+                        self.testB()
                         return r[0];
                     }
                 }
@@ -254,6 +251,7 @@ export class AM2APlan extends AMBaza {
         }
 
         this.korIdArr = function(){
+            this.testB()
             for (var i = 0; i < this.array.length; i++) {
                 this.array[i].idArr=i
             }
@@ -263,6 +261,11 @@ export class AM2APlan extends AMBaza {
                     this.array[i].vb=0
                 }
             }else{
+                if(this.array.length>=2){
+                    if(this._index==this.array.length-1)this.button.visible=false 
+                }
+
+
                 for (var i = 0; i < this.array.length; i++) {
                     if(i<=this._index)this.array[i].vb=1
                     else this.array[i].vb=2
@@ -283,9 +286,9 @@ export class AM2APlan extends AMBaza {
             let b=false;
             if(this.array[this._index]&&this.array[this._index].visible==true)b=true;
 
-            /*this.button.x= b==true ? self.panel.x : self.panel.width-this.button.width;  */ 
+            
             if(b==false){
-                this.button.x=self.panel.width-this.button.width;                
+                this.button.x=self.panel.x+self.panel.width-this.button.width;                
             }else{
                 this.button.x=self.panel.x;  
                 this.dCBNa.x=this.array[this._index].dCont.x;
@@ -293,6 +296,7 @@ export class AM2APlan extends AMBaza {
             }
             this.dCBNa.visible=b;
             this.button.y=self.panel.height+20;
+
         }
 
 
