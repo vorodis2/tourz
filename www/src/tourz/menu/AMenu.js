@@ -115,12 +115,12 @@ export class AMenu  {
         });
 
 
-        this.array[this.array.length]=this.aMDebag=new AMDebag(this, function(s,p){            
+       /* this.array[this.array.length]=this.aMDebag=new AMDebag(this, function(s,p){            
             
         });
         if(this.aMDebag.getLocMoel()!=false){
-            this.objBase=objBase=this.aMDebag.getLocMoel()
-        }
+            //this.objBase=objBase=this.aMDebag.getLocMoel()
+        }*/
 
 
 
