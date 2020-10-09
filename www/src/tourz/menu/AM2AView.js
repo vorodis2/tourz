@@ -83,6 +83,7 @@ export class AM2AView extends AMBaza {
             this.label.text=obj.text;            
             this.tView.link=obj.pic;
             this.tView.rotation=obj.rotation*Math.PI/180
+            
 
         }
 
