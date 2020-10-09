@@ -49,6 +49,11 @@ export class AM2Assign extends AMBaza {
 
 
 
+        this.testObj=function(o){
+            trace(this.objBase.link)
+            trace(o)
+            if(o.id==this.objBase.id)this.am2aPlan.setObj(this.objBase.link);            
+        }
 
 
         this.up=function(){
@@ -62,6 +67,7 @@ export class AM2Assign extends AMBaza {
         }
 
         this.down=function(){
+           // dcmParam.removeFunMove(self.gallary.mousemove)
             self.dragO(this.array[this.index].object);             
         }
         this.dragO=function(o){
@@ -92,7 +98,8 @@ export class AM2Assign extends AMBaza {
         this.setObj=function(o){
             this.objBase=o;           
             this.openArrId(o.array)
-            this.am2aPlan.setPic(o.link.src)   
+            //this.am2aPlan.setPic(o.link.src)   
+            this.am2aPlan.setObj(this.objBase.link)
             aaa= this.objBase.array     
         }
         var aaa
@@ -108,7 +115,8 @@ export class AM2Assign extends AMBaza {
                 if(a[i].rPlus==undefined)a[i].rPlus=0;
             }
             this.gallary.start(a); 
-            this.am2aPlan.start(a);  
+            this.am2aPlan.start(a);
+            this.index =-1;
         }
 
 
@@ -198,9 +206,21 @@ function DGT1(dCont, _x, _y, _fun,par) {
         return r;
     }    
 }
+
 DGT1.prototype = Object.create(DGallery.prototype);
 DGT1.prototype.constructor = DGT1;
-
+Object.defineProperties(DGT1.prototype, {
+    index: { // активный элемент
+        set: function (value) {
+            if (this._index == value) return;
+            this._index = value;
+      
+        },
+        get: function () {
+            return this._index;
+        }
+    },
+})
 
 function BXZ1(dCont, _x, _y, _fun, par) {
     DBox.call(this, dCont, _x, _y, _fun);

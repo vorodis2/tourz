@@ -67,35 +67,7 @@ export class AM1Gal extends AMBaza {
         this.gallary.boolPositOtctup=false
         this.gallary.zScrol=-12
 
-        /*__________________________________________*/ 
-            
-/*
-        this.i=new DInput(this.dContXZ, 200,0,"resources/image/t0.jpg",function(){
-            
-        });
-        this.i.width=200
 
-        this.i1=new DInput(this.dContXZ, 400,0,"resources/image/p0.png",function(){
-            
-        });
-        this.i1.width=200
-
-        this.i2=new DInput(this.dContXZ, 600,0,"nameRoom",function(){
-            
-        });
-        
-
-        this.b=new DButton(this.dContXZ, 700,0,"<",function(){
-                self.objBase.array.push({
-                text:self.i2.text,
-                icon:self.i1.text,
-                pic:self.i.text
-            });
-            self.gallary.start(self.objBase.array);  
-            
-            self.fun("saveTime")
-        });
-        this.b.width=this.b.height*/
         
 
         ///////////////////////
@@ -103,11 +75,8 @@ export class AM1Gal extends AMBaza {
 
         this.setObj=function(o){
             this.objBase=o; 
-            this.gallary.start(this.objBase.array);             
-            
+            this.gallary.start(this.objBase.array);       
         }
-
-
 
 
         var w,h,s;
@@ -120,7 +89,6 @@ export class AM1Gal extends AMBaza {
             this.dContXZ.x=_w/2/_s-this.widthMenu/2;                    
         }
   	}
-
 }
 
 

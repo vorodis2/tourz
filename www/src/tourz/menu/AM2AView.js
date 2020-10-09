@@ -53,7 +53,7 @@ export class AM2AView extends AMBaza {
             self._height=this.height;
             self._width=this.width;
 
-            self.button.x=0;
+            self.button.x=self._width-self.button.width-20;
             self.button.y=self._height+20;
             self.label.width=self._width;
         })
@@ -63,6 +63,9 @@ export class AM2AView extends AMBaza {
         this.button = new DButton(this.dCont,0,0,"Zurück",function(){
             self.fun("index",self.par.index-1);
         });
+        this.button.width=160;        
+        this.button.color="#222222";
+        this.button.borderRadius=this.minBR;
 
         this.resaz = function(argument) {            
           /*  this.panel.width=this._width;

@@ -23,7 +23,8 @@ export class AM0Base extends AMBaza {
         this.dpB=undefined
 
 
-        this.down= function(s,p){                                     
+        this.down= function(s,p){  
+                                               
             if(s=="completed")self.fun(s,p.id);//self.indexId=p.id;
             if(s=="preview")self.fun(s,p);
             if(s==undefined){

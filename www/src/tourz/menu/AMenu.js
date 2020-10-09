@@ -11,6 +11,8 @@ import {SvasBd} from './SvasBd.js';
 
 import {ACreatPic} from './ACreatPic.js';
 
+import {ARedragPic} from './ARedragPic.js';
+
 export class AMenu  {
   	constructor(par,fun) {  		
   		this.type="AMenu";
@@ -70,12 +72,13 @@ export class AMenu  {
         
         this.array[this.array.length]=this.aMUp=new AMUp(this, function(s,p){            
             if(s=="index")self.index=p;
-            if(s=="saveTime")self.saveTime()
-            if(s=="animatActiv")self.animatActiv()    
+            if(s=="saveTime")self.saveTime();
+            if(s=="animatActiv")self.animatActiv();    
         });
 
         this.arrB[0]=this.array[this.array.length]=this.aM0Base=new AM0Base(this, function(s,p){            
             
+            if(s=="preview")self.aRedragPic.setLink(p);
             if(s=="index")self.index=p;
             if(s=="completed")self.indexId=p;
             if(s=="saveTime")self.saveTime()
@@ -102,6 +105,15 @@ export class AMenu  {
 
             if(s=="saveTime")self.saveTime()           
         });
+
+        this.array[this.array.length]=this.aRedragPic=new ARedragPic(this, function(s,p){            
+            if(s=="save"){
+                self.aM2Assign.testObj(p)
+            }
+
+            //if(s=="saveTime")self.saveTime()           
+        });
+
 
         this.array[this.array.length]=this.aMDebag=new AMDebag(this, function(s,p){            
             

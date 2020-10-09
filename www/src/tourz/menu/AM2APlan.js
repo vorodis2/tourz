@@ -38,7 +38,7 @@ export class AM2APlan extends AMBaza {
        
         //new DPanel(this.dCont1,0,0)
 
-
+        this.dCIm = new DCont(this.dCont)
 
 
         this.button = new DButton(this.dCont,0,0,"Weiter",function(){
@@ -51,28 +51,33 @@ export class AM2APlan extends AMBaza {
 
 
 
-        this.image=new DImage(this.dCont,0,0,null,function(){
+
+        this.image=new DImage(this.dCIm,0,0,null,function(){
             this.width=this.picWidth
             this.height=this.picHeight
             self.panel.width=this.picWidth+self.otstup*2
             self.panel.height=this.picHeight+self.otstup*2
+            self.korectWH()
             self.dragIndex()
         });
         this.image.div.style.pointerEvents="none";
-        //this.dCont.div.style.pointerEvents="none";   
+
+          
 
         this.dCBut = new DCont(this.dCont);
 
         this.dCBNa = new DCont(this.dCont);
         this.dCBNa1 = new DCont(this.dCBNa);
 
+        var ss=0.55
         this.image1=new DImage(this.dCBNa1,0,0,"resources/image/picHero.png",function(){
-            this.width=this.picWidth;
-            this.height=this.picHeight;
+            this.width=this.picWidth*ss;
+            this.height=this.picHeight*ss;
             this.x=-this.width/2;
             this.y=-this.height/2;            
         });
         this.dCBNa.visible=false;
+        this.image1.div.style.pointerEvents="none";
 
       
         this.setRotation=function(n){            
@@ -261,7 +266,7 @@ export class AM2APlan extends AMBaza {
                     this.array[i].vb=0
                 }
             }else{
-                if(this.array.length>=2){
+                if(this.array.length>=1){
                     if(this._index==this.array.length-1)this.button.visible=false 
                 }
 
@@ -276,10 +281,48 @@ export class AM2APlan extends AMBaza {
 
         
 
+        this.korectWH = function(){
+            if(this.obj.rect==undefined){
+                this.obj.rect={x:0,y:0,width:this.image.picWidth,height:this.image.picHeight}
+            }
+            this.image.width=this.image.picWidth;
+            this.image.height=this.image.picHeight;
+            this.image.x=-this.obj.rect.x;
+            this.image.y=-this.obj.rect.y;
+
+            this.dCIm.div.style.clip = "rect(0px "+this.obj.rect.width+"px "+this.obj.rect.height+"px 0px)";
+
+            self.panel.width=this.obj.rect.width+self.otstup*2;
+            self.panel.height=this.obj.rect.height+self.otstup*2;
+
+
+
+
+            self.sizeWindow();
+
+            /*this.image=new DImage(this.dCIm,0,0,null,function(){
+            this.width=this.picWidth
+            this.height=this.picHeight
+            self.panel.width=this.picWidth+self.otstup*2
+            self.panel.height=this.picHeight+self.otstup*2*/
+
+        }
+
+
 
         this.setPic = function(link){ 
             this.image.link=link;
         }
+
+
+        this.obj=undefined
+        this.setObj = function(obj){
+            trace(">>>>>",obj,this.obj)
+            this.obj=obj;
+            this.setPic(obj.src); 
+            if(this.obj.rect!=undefined)  this.korectWH();        
+        }
+
 
 
         this.dragIndex= function(){

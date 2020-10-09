@@ -30,16 +30,16 @@ export class AM3Final extends AMBaza {
             
         });
         this.input.width=this.widthMenu;
+        this.input.borderRadius=this.bRadius;
 
         this.button=new DButton(this.dContXZ, 0,42,"copy Link",function(){      
             dcmParam.ctrlCV.saveText(self.input.text)
         });
         this.button.width=160;
         this.button.x=(this.input.width-this.button.width)/2;
-
-        this.button.color="#dddddd";
-        this.button.borderRadius=2;
-        this.button.colorText= "#222222";   
+  
+        this.button.borderRadius=this.bRadius;;
+        this.button.color= "#222222";   
 
 
         ///////////////////////

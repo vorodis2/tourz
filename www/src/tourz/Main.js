@@ -110,8 +110,8 @@ export class Main  {
   		this.sizeWindow = function(w,h){  			
   			self._width=w;
 			self._height=h;
-			if (self._width < 800) self._width = 800;
-			if (self._height < 600) self._height = 600;
+			if (self._width < 1250) self._width = 1250;
+			if (self._height < 800) self._height = 800;
 			s= w/self._width;
 			if(s>h/self._height)s=h/self._height;
 			this.scale = s;			

@@ -213,8 +213,7 @@ export class PPoint extends MOBaza {
                 self.bs.activMouse=false;
                 self.openObj(self.gall.array[self.gall.index].object)
                
-                self.map.resetPoint();  */
-                trace("this.activeVisi  ",this.activeVisi)
+                self.map.resetPoint();  */                
                 
                 if(this._activeVisi==false){
                     self.dragSah()
