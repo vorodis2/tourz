@@ -14,17 +14,17 @@ export class SvasBd  {
         this.arrBd[0]=  {id:63773,grundrissname:"Eichest. 1OG",link:{src:"resources/image/startImage.png"},
                             array:[
                                 {text:"name 1",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
-                                {text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t0.png"},
+                                {text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t1.jpg"},
                                 {text:"name 3",icon:"resources/image/36110.png",pic:"resources/image/t0.jpg"},
-                                {text:"name 4",icon:"resources/image/pic.jpg",pic:"resources/image/t0.png"},
+                                {text:"name 4",icon:"resources/image/pic.jpg",pic:"resources/image/pic.jpg"},
                                 {text:"name 5",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
-                                {text:"name 6",icon:"resources/image/360.png",pic:"resources/image/t0.png"}
+                                {text:"name 6",icon:"resources/image/360.png",pic:"resources/image/t1.jpg"}
                         ]}
 
         this.arrBd[1]=  {id:63772,grundrissname:"Eichest. 1EG",link:{src:"resources/image/startImage.png"},
                             array:[
                             {text:"name 1",icon:"resources/image/p0.png",pic:"resources/image/t0.jpg"},
-                            {text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t0.png"}
+                            {text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t1.jpg"}
                         ]}
 
         this.arrBd[2]=  {id:63771,grundrissname:"Пустой",link:{src:"resources/image/startImage.png"},
@@ -34,7 +34,7 @@ export class SvasBd  {
                             array:[]}   
                                                
         for (var i = 0; i <30; i++) {
-            this.arrBd[3].array.push({text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t0.png"})
+            this.arrBd[3].array.push({text:"name 2",icon:"resources/image/360.png",pic:"resources/image/t1.jpg"})
         }                   
 
 

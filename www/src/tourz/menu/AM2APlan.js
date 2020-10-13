@@ -19,7 +19,7 @@ export class AM2APlan extends AMBaza {
         this.arrayCh=[]; 
 
         this.dCont = new DCont(par.dContXZ)
-
+        dcmParam.addFunNotActivDiv(this.dCont.div)
         setTimeout(function() {
             self.dCont.x=self.widthMenu/2+self.otstup*2//+Math.random()*111
         }, 10);
@@ -49,11 +49,11 @@ export class AM2APlan extends AMBaza {
         this.button.borderRadius=this.minBR;
 
 
-        this.image=new DImage(this.dCIm,0,0,"resources/image/cat.png",function(){
+      /*  this.image=new DImage(this.dCIm,0,0,"resources/image/cat.png",function(){
             this.width=this.picWidth
             this.height=this.picHeight
             
-        });
+        });*/
 
 
         this.image=new DImage(this.dCIm,0,0,null,function(){
@@ -293,8 +293,7 @@ export class AM2APlan extends AMBaza {
             this.image.width=this.image.picWidth;
             this.image.height=this.image.picHeight;
             this.image.x=-this.obj.rect.x;
-            this.image.y=-this.obj.rect.y;
-            trace(this.obj.rect)
+            this.image.y=-this.obj.rect.y;           
             this.dCIm.div.style.clip = "rect(0px "+this.obj.rect.width+"px "+this.obj.rect.height+"px 0px)";
 
 
@@ -324,7 +323,7 @@ export class AM2APlan extends AMBaza {
 
         this.obj=undefined
         this.setObj = function(obj){
-            trace(">>>>>",obj,this.obj)
+            
             this.obj=obj;
             this.setPic(obj.src); 
             if(this.obj.rect!=undefined)  this.korectWH();        

@@ -26,8 +26,8 @@ export class AMUp  {
         this.dCont1 = new DCont(this.dCont);// Блоки, контент
         this.tween = new TWEEN.Tween(this.dCont1);
 
-
-
+        dcmParam.addFunNotActivDiv(this.dCont.div)
+        dcmParam.addFunNotActivDiv(this.pBig.div)
         // Массив блоков      
         var arr=[
             {src:"resources/image/y0.png",src1:"resources/image/y0_.png",text:"Choose Floorplan"},
@@ -122,7 +122,7 @@ class AMUButton  {
         * dCont : контейнер куда цепляем нашу кнопку //par.dCont1 - это штука в другом контейнере по середине
         * x : положение по х
         */
-        trace("this.par.otstup",this.par)
+
         this.dCont=new DCont(par.dCont1)
         this.dCont.x=idArr*(this.widthBlok+this.par.otstup)
 

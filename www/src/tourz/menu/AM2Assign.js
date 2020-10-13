@@ -92,7 +92,7 @@ export class AM2Assign extends AMBaza {
         this.gallary.boolPositOtctup=false
         this.gallary.zScrol=-7;
         
-
+        dcmParam.addFunNotActivDiv(this.gallary.div)
         ///////////////////////
         
 

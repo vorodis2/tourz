@@ -49,7 +49,9 @@ export class AM0Base extends AMBaza {
             if(this.dContXZ!=undefined)return;
 
             this.dContXZ = new DCont(this.dCont) 
-            this.dContXZ.y=this.indent+this.sizeBase+45; 
+            this.dContXZ.y=this.indent+this.sizeBase+45;
+
+            dcmParam.addFunNotActivDiv(this.dCont.div) 
 
             let xs=40;
 
