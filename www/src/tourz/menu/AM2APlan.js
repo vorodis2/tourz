@@ -49,7 +49,11 @@ export class AM2APlan extends AMBaza {
         this.button.borderRadius=this.minBR;
 
 
-
+        this.image=new DImage(this.dCIm,0,0,"resources/image/cat.png",function(){
+            this.width=this.picWidth
+            this.height=this.picHeight
+            
+        });
 
 
         this.image=new DImage(this.dCIm,0,0,null,function(){
@@ -137,8 +141,8 @@ export class AM2APlan extends AMBaza {
                 dcmParam.removeFunMove(mousemove)
             }else{                    
                 document.removeEventListener("touchend", mouseup);
-
             }
+            //document.body.style.pointerEvents='auto'
         }
 
         var dCD,sp,dCDObject,as
@@ -149,7 +153,7 @@ export class AM2APlan extends AMBaza {
                 dCD= self.array[self._index].dCont;
                 dCDObject=self.array[self._index].object;
                 as=self.array[self._index].object.rPlus
-                let ooo=self.par.par.fXYP(dCD)
+                let ooo=self.par.par.fXYP(dCD);
                 pp.x=ooo.x;
                 pp.y=ooo.y;
                 pp.s=ooo.s;
@@ -161,6 +165,7 @@ export class AM2APlan extends AMBaza {
                     document.addEventListener("touchend", mouseup);
 
                 }
+                //document.body.style.pointerEvents="none";
             }
         }
 
@@ -289,8 +294,10 @@ export class AM2APlan extends AMBaza {
             this.image.height=this.image.picHeight;
             this.image.x=-this.obj.rect.x;
             this.image.y=-this.obj.rect.y;
-
+            trace(this.obj.rect)
             this.dCIm.div.style.clip = "rect(0px "+this.obj.rect.width+"px "+this.obj.rect.height+"px 0px)";
+
+
 
             self.panel.width=this.obj.rect.width+self.otstup*2;
             self.panel.height=this.obj.rect.height+self.otstup*2;

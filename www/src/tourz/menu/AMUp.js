@@ -10,6 +10,7 @@ export class AMUp  {
         this.par=par
         this._open=false;
         this._index=-1;
+        this.otstup=par.otstup
         this.time=this.par.time//ереход с одной какртинке к другой
         this.bRadius=this.par.bRadius
         this.colorAct=this.par.colorAct
@@ -21,8 +22,8 @@ export class AMUp  {
         //this.pBig.alpha=0
         this.pBig.color="#fafafa"
 
-        this.dCont=new DCont(par.dCont);// Блоки, контент
-        this.dCont1=new DCont(this.dCont);// Блоки, контент
+        this.dCont = new DCont(par.dCont);// Блоки, контент
+        this.dCont1 = new DCont(this.dCont);// Блоки, контент
         this.tween = new TWEEN.Tween(this.dCont1);
 
 
@@ -31,7 +32,7 @@ export class AMUp  {
         var arr=[
             {src:"resources/image/y0.png",src1:"resources/image/y0_.png",text:"Choose Floorplan"},
             {src:"resources/image/y1.png",src1:"resources/image/y1_.png",text:"Upload Panoramas"},
-            {src:"resources/image/y2.png",src1:"resources/image/y2_.png",text:"Assign Panaramas"},
+            {src:"resources/image/y2.png",src1:"resources/image/y2_.png",text:"Assign Panoramas"},
             {src:"resources/image/y3.png",src1:"resources/image/y3_.png",text:"Publish"}
         ]
 
@@ -121,8 +122,9 @@ class AMUButton  {
         * dCont : контейнер куда цепляем нашу кнопку //par.dCont1 - это штука в другом контейнере по середине
         * x : положение по х
         */
+        trace("this.par.otstup",this.par)
         this.dCont=new DCont(par.dCont1)
-        this.dCont.x=idArr*(this.widthBlok+this.indent)
+        this.dCont.x=idArr*(this.widthBlok+this.par.otstup)
 
         this.panel=new DPanel(this.dCont);
         this.panel.alpha=0

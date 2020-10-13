@@ -18,9 +18,8 @@ export class AM0Base extends AMBaza {
         this.widthMenu=par.widthMenu
         this.objBase=undefined
         var wPlus=2200;
-        this.kolSig=12; 
-
-        this.dpB=undefined
+        this.kolSig=12;
+        this.dpB = undefined;
 
 
         this.down= function(s,p){  
@@ -30,10 +29,7 @@ export class AM0Base extends AMBaza {
             if(s==undefined){
                 self.fun("completed",this.array[this.index].object.id);                
             }
-        } 
-
-
-
+        }
         
 
         this.redragProdukts= function(){
@@ -42,8 +38,7 @@ export class AM0Base extends AMBaza {
             if(kk>this.kolSig)kk=this.kolSig
             let yy=kk*(this.gallary.heightPic+this.gallary.otstup)+this.gallary.otstup*2           
             this.gallary.height=yy
-            if(this.dpB)this.dpB.y=this.gallary.y+this.gallary.height+10
-
+            if(this.dpB)this.dpB.y=this.gallary.y+this.gallary.height+10;
             if(kk!=0)this.indexId=this.array[0].id
             this.sizeWindow();                  
         }
@@ -53,17 +48,8 @@ export class AM0Base extends AMBaza {
         this.init= function(){
             if(this.dContXZ!=undefined)return;
 
-            
-
-
-
             this.dContXZ = new DCont(this.dCont) 
-            this.dContXZ.y=this.indent+this.sizeBase+45;
-
-            
-           
-            
-
+            this.dContXZ.y=this.indent+this.sizeBase+45; 
 
             let xs=40;
 
@@ -74,6 +60,7 @@ export class AM0Base extends AMBaza {
             this.input.height=26;
             this.input.width=160
             this.input.timeFun=1;
+            this.input.text=""
 
             let l=new DLabel(this.dContXZ,this.input.x+this.input.width+this.indent+20,6,"Grundrissname:")
 
@@ -83,6 +70,7 @@ export class AM0Base extends AMBaza {
             this.input1.height=26;
             this.input1.width=160
             this.input1.timeFun=1;
+            this.input1.text=""
             this.button=new DButton(this.dContXZ,this.input1.x+this.input1.width+this.indent+25,0,"Suchen",function(){         
                 let ap=[]
                 if(self.input.value && self.input.value.length>=1 &&self.input.value!="null"){
@@ -113,10 +101,12 @@ export class AM0Base extends AMBaza {
             l.fontSize=siZet
             l=new DLabel(this.dContXZ,xs+115,yy,"GRUNDRISSNAME");
             l.fontSize=siZet
-            l=new DLabel(this.dContXZ,xs+345,yy,"STETUS");
+            l=new DLabel(this.dContXZ,xs+345,yy,"AKTIONEN");
+            l.fontSize=siZet
+            /*l=new DLabel(this.dContXZ,xs+345,yy,"STETUS");
             l.fontSize=siZet
             l=new DLabel(this.dContXZ,xs+512,yy,"AKTIONEN");
-            l.fontSize=siZet
+            l.fontSize=siZet*/
 
            
 
@@ -296,15 +286,22 @@ function BoxXZ(dCont, _x, _y, _fun, par) {
 
 
 
+    this.bLoad=new DButton(this.content, this.par.wPlus+320,2,"",function(s){
+        trace(self.object )
+        self.object.link.src=s;
+
+    },"resources/image/load1.png");
+    this.bLoad.width = 32;
+    this.bLoad.boolFond = false
+    this.bLoad.startFile()
 
 
-
-    this.button=new DButton(this.content, this.par.wPlus+320,2,"completed",function(){
+    /*this.button=new DButton(this.content, this.par.wPlus+320,2,"completed",function(){
         self.par.fun("completed",self.object)
     });
     this.button.width=160;
     this.button.color="#10bf10";
-    this.button.borderRadius=this.par.minBR
+    this.button.borderRadius=this.par.minBR*/
     
 
     this.l=new DLabel(this.content, 0,8,"Preview") 
@@ -317,13 +314,17 @@ function BoxXZ(dCont, _x, _y, _fun, par) {
         self.par.fun("preview",self.object)
     });
     this.button1.width=160;
-    
-    //this.button1.label.color="#000000"
+
+    this.l.x= this.par.wPlus+this.par.widthMenu/2+50
+
     
     this.label.color=dcmParam.colorText1;
-    this.button1.x=this.par.wPlus+this.par.widthMenu-this.button1.width+30;
-    this.button.height=this.button1.height=par.heightPic-8;
-    this.l.x= this.button1.x+20
+    this.button1.x=this.l.x-50;
+    //this.button.height=par.heightPic-8;
+    this.button1.height=par.heightPic-8;
+
+    this.bLoad.x=this.button1.x+this.button1.width+10
+    
     
     //this.button1.panel.visible=false
     this.button1.alpha = 0.01;

@@ -10,9 +10,10 @@ export class AMBaza  {
         this.par=par;
         this.fun=fun;
 
-        this._active= false;       
-        this.otstup=2//this.par.otstup;
-        this.otstup1=10//this.par.otstup1;
+        this._active= false; 
+
+        this.otstup=par.otstup//this.par.otstup;
+        this.otstup1=24//this.par.otstup1;
         this.wh=100//this.par.wh;
         //this.width=100//this.par.width;
         this.whSize=100//this.par.whSize;

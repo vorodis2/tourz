@@ -27,6 +27,8 @@ export class AMenu  {
         this.time=500
         this.glowColor="#dddddd"
 
+        this.otstup=24;
+
         dcmParam.color="#dddddd";
         dcmParam.colorText1="#222222";
         dcmParam.fontFamily="Montserrat";
@@ -128,7 +130,7 @@ export class AMenu  {
 
         this.save1=function(){  
          
-            this.aMDebag.save(this.objBase);
+            if(this.aMDebag)this.aMDebag.save(this.objBase);
         } 
         this.sah=0;
         this.saveTime=function(){

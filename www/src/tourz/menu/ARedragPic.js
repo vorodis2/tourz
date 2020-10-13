@@ -13,7 +13,7 @@ export class ARedragPic extends AMBaza {
         this.fun=fun;
 
         this._index=-1;
-        this.otstup=12
+                
         this._active=false;
         this.widthMenu=par.widthMenu 
 
@@ -36,8 +36,8 @@ export class ARedragPic extends AMBaza {
             this.panel=new DPanel(this.dCont,0,0)
             this.panel.boolLine=false
             this.panel.borderRadius =this.bRadius;
-            this.panel.glowSah=1;
-            this.panel.glowColor=this.glowColor;
+            //this.panel.glowSah=1;
+           // this.panel.glowColor=this.glowColor;
             this.panel.color="#fafafa";
 
             this.button=new DButton(this.panel.content, 0,0,"SAVE",function(s){
@@ -62,14 +62,15 @@ export class ARedragPic extends AMBaza {
             this.dHole=new DHole(this.panel.content,this.otstup,this.otstup,null,this.dragObj)
             this.dHole.colorButton="#222222";
             this.dHole.colorAct="#222222";
-            this.dHole.borderRadius=this.bRadius;
+            this.dHole.borderRadius=this.bRadius*2;
         } 
 
         this.dragObj= function(){ 
 
         }
 
-        this.complitImage= function(){ 
+        this.complitImage= function(){
+            trace(this.picWidth+"  ##### "+this.picHeight) 
             this.width=this.picWidth;
             this.height=this.picHeight;
 

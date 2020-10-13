@@ -27,21 +27,7 @@ export class AM1Gal extends AMBaza {
         this.dContXZ = new DCont(this.dCont) 
         this.dContXZ.y=this.indent+this.sizeBase+45;
 
-        this.button=new DButton(this.dContXZ, this.otstup1,0,"Datei auswählen",function(s){
-            self.par.aCreatPic.setFile(this.files[0],s,function(b,b1){
-                self.objBase.array.push({
-                    text:"name",
-                    icon:b,
-                    pic:b1
-                });
-                self.gallary.start(self.objBase.array); 
-                self.par.aM2Assign.openArrId()
-            });
-        });
-        this.button.width=160;        
-        this.button.color="#222222";
-        this.button.borderRadius=this.minBR;
-        this.button.startFile()
+       
 
         this.down=function(s,p){
             if(s=="kill"){
@@ -51,7 +37,7 @@ export class AM1Gal extends AMBaza {
             }
         }
 
-        this.gallary = new DGT(this.dContXZ,0,60,this.down,this)
+        this.gallary = new DGT(this.dContXZ,0,32,this.down,this)
         this.gallary.widthMenu=this.widthMenu
         this.gallary.otstup=this.otstup1;
         this.gallary.kolII=4;
@@ -66,6 +52,22 @@ export class AM1Gal extends AMBaza {
 
         this.gallary.boolPositOtctup=false
         this.gallary.zScrol=-12
+
+        this.button=new DButton(this.dContXZ, this.otstup,0,"Datei auswählen",function(s){
+            self.par.aCreatPic.setFile(this.files[0],s,function(b,b1){
+                self.objBase.array.push({
+                    text:"name",
+                    icon:b,
+                    pic:b1
+                });
+                self.gallary.start(self.objBase.array); 
+                self.par.aM2Assign.openArrId()
+            });
+        });
+        this.button.width=160;        
+        this.button.color="#222222";
+        this.button.borderRadius=this.minBR;
+        this.button.startFile()
 
 
         

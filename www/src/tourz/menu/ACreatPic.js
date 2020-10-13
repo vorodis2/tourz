@@ -12,14 +12,16 @@ export class ACreatPic extends AMBaza {
   		var self=this;
         this.fun=fun;
         this._index=-1;
-        this.otstup=7
+
+        this.width=800
+        this.height=600
         this._active=false;
         this.widthMenu=par.widthMenu 
 
         this.array=[];       
         this.arrayCh=[]; 
 
-        this.dCont = new DCont(par.dCont)
+        this.dCont = new DCont(par.dCont);
 
         this.panel=undefined
 
@@ -35,35 +37,41 @@ export class ACreatPic extends AMBaza {
             this.panel=new DPanel(this.dCont,0,0)
             this.panel.boolLine=false
             this.panel.borderRadius =this.bRadius;
-            this.panel.glowSah=1;
+           /* this.panel.glowSah=1;
             this.panel.glowColor=this.glowColor;
-            this.panel.color="#fafafa";
+            this.panel.color="#fafafa";*/
+
+            this.dCV = new DCont(this.panel.content) 
 
 
-
-            
+            this.dCV.x= this.otstup;
+            this.dCV.y= this.otstup;
 
             this.tView = new TView(function(s,p){            
             
             });
-            this.dCV = new DCont(this.panel.content) 
-            this.dCV.x= this.otstup+5
-            this.dCV.y= this.otstup+5       
+                  
             this.dCV.div.appendChild(this.tView.div);
             this.tView.active=false;
-            this.dCV.x= self.bRadius;
-            this.dCV.y= self.bRadius; 
+            self.tView.sizeWindow(this.width-this.otstup*2, this.height-this.otstup*3-32);    
 
-            this.button=new DButton(this.panel.content, 0,0,"SAVE",function(s){
+
+
+            this.button=new DButton(this.panel.content, this.width-160-this.otstup,this.height-this.otstup-32,"SAVE",function(s){
                 self.seve()
             });
             this.button.width=160;        
             this.button.color="#222222";
             this.button.borderRadius=this.minBR;
-            this.button.visible=false
+            
 
 
-            this.image = new DImage(this.panel.content, this.otstup, this.otstup,"resources/image/w3.png",function(){
+            
+            self.panel.width=this.width
+            self.panel.height=this.height
+
+
+            /*this.image = new DImage(this.panel.content, this.otstup, this.otstup,"resources/image/w3.png",function(){
                 this.width=this.picWidth;
                 this.height=this.picHeight;
                 self.tView.sizeWindow(this.width-10, this.height-10);
@@ -81,7 +89,7 @@ export class ACreatPic extends AMBaza {
                 
                 self.sizeWindow()
             })
-            this.image.div.style.pointerEvents="none";
+            this.image.div.style.pointerEvents="none";*/
 
         } 
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>Sphere</title>
+
+
+
+
+<script src='src/lib/jquery-1.11.3.js'></script>
+<!--
+
+<script src='src/libMy/MenuScene.js'></script>
+<script src='src/libMy/SceneSB.js'></script>
+	дабаг-->	
+<script src='src/lib/tween.min.js'></script>
+<script src='src/lib/three.min.js'></script>
+<script src='src/libMy/divLib.js'></script>
+
+
+
+
+
+
+
+<style type="text/css">
+	#stats { position: absolute; top:0; left: 200px; }
+</style>
+
+</head>
+<meta name="viewport" content="width=device-width,height=device-height,user-scalable=no user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<body>
+
+<script  type="module">
+
+	import { TVDebug } from './src/tourz/tView/TVDebug.js';
+
+	window.trace = window.console.log.bind(window.console);
+
+	
+
+	var debug=new TVDebug(function(s,p,p1){
+		
+		
+	});
+	
+
+
+	
+
+
+
+
+
+	function sizeWindow () {
+		var w = document.documentElement.clientWidth;
+		var h = document.documentElement.clientHeight;
+		debug.sizeWindow(w,h,1);
+		
+	}
+	window.onresize = sizeWindow;
+	sizeWindow();
+
+
+
+
+	
+</script>	
+</body></html>

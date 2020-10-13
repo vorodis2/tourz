@@ -5,7 +5,7 @@
 import { MVisi3D } from './visi3D/MVisi3D.js';
 import { SceneSB } from './visi3D/SceneSB.js';
 
-
+import { TVSigment } from './TVSigment.js';
 
 
 export class TView  {
@@ -13,7 +13,10 @@ export class TView  {
   		this.type="TView";
   		var self=this;
         this.fun=fun;    
-        this._active=true;    
+        this._active = true; 
+        this._link = "null";
+
+
 
         this.div= document.createElement('div');
         this.div.style.position = 'fixed';
@@ -32,11 +35,13 @@ export class TView  {
         //global.visi3D=this.visi3D;
 
 
+        this.sigment=new TVSigment(this,function(s,p){
 
+        });
 
 
         //хрень принемашка ресурсов и настроек камеры для 
-        var o='{"ambient":{"works":true,"active":true,"color":"#fdffff","intensity":0.71},"shadow":{"works":true,"active":true,"mapSize":4096,"color":"#8c8c8c","bias":-0.0014,"intensity":1.01,"radius":1.27,"bAlphaForCoating":false,"fixation":true,"rotationX":0.93,"rotationZ":0.73,"distance":500,"cubWidth":1000,"cubHeight":1000,"distanceUpdateShadow":65.41},"sky":{"works":true,"active":true,"color":"#ffffff","link":"null","rotZ":2.73,"radius":7008,"x":0,"y":0,"z":0},"mirror":{"works":true,"link":"resources/scane/sky/fon1.jpg","exposure":1.44,"gamma":2.87,"xz":"reflect","link1":"resources/scane/sky/fon1.jpg","exposure1":-1,"gamma1":-1},"visi3D":{"works":true,"alwaysRender":false,"fov":16,"far":47175,"minZum":0,"maxZum":10942,"zume":2500,"minRotationX":3.14,"maxRotationX":0,"rotationX":0.94,"rotationZ":0.17,"debug":false,"isDragPan":false,"alphaAd":false,"globZ":0,"powerZum":1},"fog":{"works":true,"active":false,"color":"#ffffff","near":0,"far":0},"effect":{"works":true,"active":false,"edgeStrength":3,"edgeGlow":0,"pulsePeriod":0,"linkTextur":"null","visibleEdgeColor":"#ffffff","hiddenEdgeColor":"#190a05"}}'
+        var o='{"ambient":{"works":true,"active":true,"color":"#fdffff","intensity":0.71},"shadow":{"works":true,"active":true,"mapSize":4096,"color":"#8c8c8c","bias":-0.0014,"intensity":1.01,"radius":1.27,"bAlphaForCoating":false,"fixation":true,"rotationX":0.93,"rotationZ":0.73,"distance":500,"cubWidth":1000,"cubHeight":1000,"distanceUpdateShadow":65.41},"sky":{"works":true,"active":true,"color":"#ffffff","link":"null","rotZ":2.73,"radius":7008,"x":0,"y":0,"z":0},"mirror":{"works":true,"link":"resources/scane/sky/fon1.jpg","exposure":1.44,"gamma":2.87,"xz":"reflect","link1":"resources/scane/sky/fon1.jpg","exposure1":-1,"gamma1":-1},"visi3D":{"works":true,"alwaysRender":false,"fov":60,"far":47175,"minZum":0,"maxZum":10942,"zume":2500,"minRotationX":3.14,"maxRotationX":0,"rotationX":0.94,"rotationZ":0.17,"debug":false,"isDragPan":false,"alphaAd":false,"globZ":0,"powerZum":1},"fog":{"works":true,"active":false,"color":"#ffffff","near":0,"far":0},"effect":{"works":true,"active":false,"edgeStrength":3,"edgeGlow":0,"pulsePeriod":0,"linkTextur":"null","visibleEdgeColor":"#ffffff","hiddenEdgeColor":"#190a05"}}'
 
         var scene=JSON.parse(o)
         this.sceneSB=new SceneSB(this.visi3D);
@@ -71,15 +76,21 @@ export class TView  {
 
         this.setLink=function(link){
             this.visi3D.utility.sky.link=link;
+            this.sigment.link=link;
         }
 
 
-
+        this.render=function(){
+            this.visi3D.intRend=1
+        }
 
         this.w=100;
         this.h=100;
         this.s=100;
         this.sizeWindow=function(w,h,s){
+            this.w=w;
+            this.h=h;
+            this.s=s;
             this.visi3D.sizeWindow(0,0,w,h);
         }
 
@@ -124,7 +135,8 @@ export class TView  {
             this.visi3D.intRend = 1;                                    
         }             
     }
-    get rotation() { return this._rotation; }   
+    get rotation() { return this._rotation; }  
+ 
 
 }
 

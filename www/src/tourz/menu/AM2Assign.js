@@ -67,11 +67,12 @@ export class AM2Assign extends AMBaza {
         }
 
         this.down=function(){
-           // dcmParam.removeFunMove(self.gallary.mousemove)
+           
             self.dragO(this.array[this.index].object);             
         }
         this.dragO=function(o){
             self.ddragPic.start(32,"resources/image/dragPint.png",o,self.up) 
+            self.ddragPic.dCont.alpha=1
             self.am2aPlan.remuveObj(o); 
             self.openArrId();
         }
@@ -114,9 +115,11 @@ export class AM2Assign extends AMBaza {
                 if(a[i].rotation==undefined)a[i].rotation=0;
                 if(a[i].rPlus==undefined)a[i].rPlus=0;
             }
+            let hhh=this.gallary.prosentH;
             this.gallary.start(a); 
-            this.am2aPlan.start(a);
+            this.am2aPlan.start(a);            
             this.index =-1;
+            this.gallary.prosentH=hhh
         }
 
 
