@@ -27,7 +27,7 @@ export class AM1Gal extends AMBaza {
         this.dContXZ = new DCont(this.dCont) 
         this.dContXZ.y=this.indent+this.sizeBase+45;
 
-        dcmParam.addFunNotActivDiv(this.dContXZ.div)
+        dcmParam.addFunNotActivDiv(this.dCont.div)
 
         this.down=function(s,p){
             if(s=="kill"){
