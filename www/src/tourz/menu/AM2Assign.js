@@ -50,8 +50,7 @@ export class AM2Assign extends AMBaza {
 
 
         this.testObj=function(o){
-            trace(this.objBase.link)
-            trace(o)
+            
             if(o.id==this.objBase.id)this.am2aPlan.setObj(this.objBase.link);            
         }
 

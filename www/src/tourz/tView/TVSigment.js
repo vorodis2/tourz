@@ -15,7 +15,7 @@ export class TVSigment  {
         this._link = "null";   
        
         this.sig=11
-        this.radius=300//par.radius/2-100;
+        this.radius=par.radius/2-100;
 
         this.content3d = new THREE.Object3D();
         par.content3d.add(this.content3d);
